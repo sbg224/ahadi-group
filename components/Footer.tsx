@@ -31,9 +31,18 @@ export default function Footer() {
           <p style={{ fontSize: '11px', color: '#5A5A52' }}>
             © 2026 AHADI Group SARLU · Conakry, Guinée · Entreprise légalement constituée
           </p>
-          <p className="font-serif text-ahadi" style={{ fontStyle: 'italic' }}>
-            La promesse tenue.
-          </p>
+          <div className="flex items-center gap-6">
+            <a
+              href="/nous-rejoindre"
+              className="hover:underline"
+              style={{ color: '#267253', fontSize: '12px' }}
+            >
+              Nous rejoindre
+            </a>
+            <p className="font-serif text-ahadi" style={{ fontStyle: 'italic' }}>
+              La promesse tenue.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
