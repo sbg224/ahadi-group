@@ -43,3 +43,94 @@ body {
   color: var(--noir);
   font-family: var(--font-sans);
 }
+
+/* ===== BOUTONS ===== */
+
+/* Primaire — remplissage slide + lift au hover */
+.btn-primary {
+  background-image: linear-gradient(to right, #1A5C3A 50%, #267253 50%);
+  background-size: 201% 100%;
+  background-position: right center;
+  transform: translateY(0);
+  box-shadow: 0 0 0 rgba(38, 114, 83, 0);
+  transition:
+    background-position 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease !important;
+}
+.btn-primary:hover {
+  background-position: left center !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(38, 114, 83, 0.28) !important;
+}
+.btn-primary:active {
+  transform: translateY(0px) !important;
+  box-shadow: 0 2px 8px rgba(38, 114, 83, 0.18) !important;
+}
+.btn-primary:disabled,
+.btn-primary:disabled:hover {
+  background-image: none;
+  background-color: #267253;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Secondaire — inversion couleur + lift au hover */
+.btn-secondary {
+  transform: translateY(0);
+  box-shadow: 0 0 0 rgba(38, 114, 83, 0);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease !important;
+}
+.btn-secondary:hover {
+  background-color: #267253 !important;
+  color: #fff !important;
+  border-color: #267253 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(38, 114, 83, 0.2) !important;
+}
+.btn-secondary:active {
+  transform: translateY(0px) !important;
+  box-shadow: 0 2px 8px rgba(38, 114, 83, 0.14) !important;
+}
+
+/* ===== SHIELD PULSE ===== */
+.pulse-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pulse-wrap::before,
+.pulse-wrap::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: #267253;
+  animation: shield-pulse 2.5s ease-out infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+.pulse-wrap::after {
+  animation-delay: 1.25s;
+}
+@keyframes shield-pulse {
+  0%   { transform: scale(0.8); opacity: 0; }
+  20%  { opacity: 0.25; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

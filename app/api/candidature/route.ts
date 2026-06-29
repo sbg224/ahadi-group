@@ -6,11 +6,27 @@ import { GOOGLE_FORM_URL, POSTES_VALIDES, CV_MAX_SIZE } from '@/lib/constants'
 
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
 
+const ALLOWED_ORIGINS = [
+  'https://ahadi-group.com',
+  'https://www.ahadi-group.com',
+]
+
+function isAllowedOrigin(origin: string | null): boolean {
+  if (process.env.NODE_ENV !== 'production') return true
+  if (!origin) return false
+  if (ALLOWED_ORIGINS.includes(origin)) return true
+  if (/^https:\/\/ahadi-group[a-z0-9-]*\.vercel\.app$/.test(origin)) return true
+  return false
+}
+
 const ALLOWED_CV_TYPES = [
   'application/pdf',
   'application/msword',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]
+
+// Regex téléphone international — chiffres, +, -, espaces, parenthèses, 7 à 20 chars
+const PHONE_RE = /^[+\d][\d\s\-().]{5,19}$/
 
 async function isValidCvMagicBytes(file: File): Promise<boolean> {
   const buf = await file.slice(0, 8).arrayBuffer()
@@ -25,6 +41,12 @@ async function isValidCvMagicBytes(file: File): Promise<boolean> {
 }
 
 export async function POST(req: NextRequest) {
+  // Vérification CSRF par Origin (FormData = requête simple CORS sans préflight)
+  const origin = req.headers.get('origin')
+  if (!isAllowedOrigin(origin)) {
+    return NextResponse.json({ error: 'Requête non autorisée' }, { status: 403 })
+  }
+
   const ip =
     req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     req.headers.get('x-real-ip') ??
@@ -57,7 +79,7 @@ export async function POST(req: NextRequest) {
   if (
     nom.length > 100 ||
     email.length > 200 ||
-    telephone.length > 50 ||
+    telephone.length > 20 ||
     ville.length > 100 ||
     motivation.length > 5000
   ) {
@@ -67,6 +89,11 @@ export async function POST(req: NextRequest) {
   // Format email
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json({ error: 'Format email invalide' }, { status: 400 })
+  }
+
+  // Format téléphone
+  if (!PHONE_RE.test(telephone)) {
+    return NextResponse.json({ error: 'Format de téléphone invalide' }, { status: 400 })
   }
 
   // Enum poste
@@ -92,7 +119,11 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       )
     }
-    const safeName = cv.name.replace(/[^a-zA-Z0-9._\- ]/g, '_').slice(0, 100)
+    // Pas d'espaces dans le nom de fichier pour éviter les problèmes d'encodage MIME
+    const safeName = cv.name
+      .replace(/[^a-zA-Z0-9._\-]/g, '_')
+      .replace(/_+/g, '_')
+      .slice(0, 100)
     const cvBase64 = Buffer.from(await cv.arrayBuffer()).toString('base64')
     cvAttachment = { filename: safeName, content: cvBase64 }
   }
@@ -122,8 +153,11 @@ export async function POST(req: NextRequest) {
   })
 
   if (error) {
-    console.error('Resend error (candidature):', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('[AHADI] Resend error (candidature):', error)
+    return NextResponse.json(
+      { error: "L'envoi a échoué. Contactez-nous directement par WhatsApp." },
+      { status: 500 },
+    )
   }
 
   // Email 2 — accusé de réception au candidat (non-bloquant)
@@ -162,7 +196,7 @@ export async function POST(req: NextRequest) {
       </div>
     `,
     })
-    .catch((err) => console.error('Resend error (candidat):', err))
+    .catch((err) => console.error('[AHADI] Resend error (candidat):', err))
 
   return NextResponse.json({ success: true, id: data?.id })
 }

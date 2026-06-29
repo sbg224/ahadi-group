@@ -230,7 +230,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="bg-noir text-white rounded-full py-3 text-sm font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60"
+                    className="btn-primary bg-ahadi text-white rounded-full py-3 text-sm font-medium flex items-center justify-center gap-2 disabled:opacity-60"
                   >
                     {loading ? (
                       <>

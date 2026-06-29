@@ -1,4 +1,18 @@
-const values = [
+'use client'
+
+import { useRef, useState } from 'react'
+
+type ValueData = {
+  title: string
+  body: string
+  bg: string
+  titleColor: string
+  bodyColor: string
+  accentColor: string
+  border?: string
+}
+
+const values: ValueData[] = [
   {
     title: 'Intégrité',
     body: "Nous ne prenons jamais d'argent des artisans, des prestataires ou de quiconque qui travaille sur votre projet. Notre seul client, c'est vous.",
@@ -6,7 +20,6 @@ const values = [
     titleColor: '#FAFAF8',
     bodyColor: '#6B6B62',
     accentColor: '#267253',
-    border: undefined,
   },
   {
     title: 'Transparence',
@@ -33,9 +46,54 @@ const values = [
     titleColor: '#FFFFFF',
     bodyColor: 'rgba(255,255,255,0.75)',
     accentColor: '#FFFFFF',
-    border: undefined,
   },
 ]
+
+function ValueCard({ v }: { v: ValueData }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const el = ref.current
+    if (!el) return
+    const { left, top, width, height } = el.getBoundingClientRect()
+    const nx = (e.clientX - left) / width - 0.5
+    const ny = (e.clientY - top) / height - 0.5
+    setTilt({ x: ny * 8, y: -nx * 8 })
+  }
+
+  function handleMouseLeave() {
+    setTilt({ x: 0, y: 0 })
+  }
+
+  const isResting = tilt.x === 0 && tilt.y === 0
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="p-8 rounded-2xl"
+      style={{
+        backgroundColor: v.bg,
+        border: v.border ? `1px solid ${v.border}` : undefined,
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transition: isResting ? 'transform 0.5s ease' : 'transform 0.1s ease',
+        willChange: 'transform',
+      }}
+    >
+      <div
+        className="h-0.5 w-7 mb-6"
+        style={{ backgroundColor: v.accentColor }}
+        aria-hidden="true"
+      />
+      <h3 className="font-serif mb-3" style={{ fontSize: '20px', color: v.titleColor }}>
+        {v.title}
+      </h3>
+      <p style={{ fontSize: '12px', color: v.bodyColor, lineHeight: '1.7' }}>{v.body}</p>
+    </div>
+  )
+}
 
 export default function Values() {
   return (
@@ -62,35 +120,12 @@ export default function Values() {
 
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           {values.map((v) => (
-            <div
-              key={v.title}
-              className="p-8 rounded-2xl"
-              style={{
-                backgroundColor: v.bg,
-                border: v.border ? `1px solid ${v.border}` : undefined,
-              }}
-            >
-              <div
-                className="h-0.5 w-7 mb-6"
-                style={{ backgroundColor: v.accentColor }}
-                aria-hidden="true"
-              />
-              <h3
-                className="font-serif mb-3"
-                style={{ fontSize: '20px', color: v.titleColor }}
-              >
-                {v.title}
-              </h3>
-              <p style={{ fontSize: '12px', color: v.bodyColor, lineHeight: '1.7' }}>{v.body}</p>
-            </div>
+            <ValueCard key={v.title} v={v} />
           ))}
         </div>
 
         <div className="bg-noir rounded-2xl px-8 py-12 text-center">
-          <p
-            className="font-serif text-white"
-            style={{ fontSize: 'clamp(20px, 2.5vw, 28px)' }}
-          >
+          <p className="font-serif text-white" style={{ fontSize: 'clamp(20px, 2.5vw, 28px)' }}>
             Investir et dormir tranquille.
           </p>
           <p

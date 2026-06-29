@@ -2,13 +2,13 @@ export default function Legit() {
   return (
     <div className="bg-ahadi-light border-b border-ahadi-border">
       <div className="max-w-6xl mx-auto px-6 py-5 flex items-start gap-4">
+        <span className="pulse-wrap shrink-0 mt-0.5">
         <svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
           fill="none"
           aria-hidden="true"
-          className="shrink-0 mt-0.5"
         >
           <path
             d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2Z"
@@ -28,6 +28,7 @@ export default function Legit() {
             strokeLinejoin="round"
           />
         </svg>
+        </span>
         <p className="text-sm text-gris leading-relaxed">
           <span style={{ fontWeight: 500, color: '#1A1A18' }}>
             Entreprise légalement constituée en Guinée.

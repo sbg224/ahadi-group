@@ -1,3 +1,5 @@
+import TimelineDraw from '@/components/animations/TimelineDraw'
+
 const dotStyle = {
   width: 14,
   height: 14,
@@ -36,16 +38,8 @@ export default function Stories() {
           className="hidden md:grid"
           style={{ gridTemplateColumns: '1fr 40px 1fr', columnGap: '32px' }}
         >
-          {/* Spine */}
-          <div
-            className="col-start-2 row-start-1 row-span-2 flex justify-center"
-            aria-hidden="true"
-          >
-            <div className="relative w-px bg-[#D4E8DF] h-full">
-              <div className="absolute top-6 left-1/2 -translate-x-1/2" style={dotStyle} />
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2" style={dotStyle} />
-            </div>
-          </div>
+          {/* Spine — progressive draw */}
+          <TimelineDraw />
 
           {/* Histoire 1 — gauche */}
           <article className="col-start-1 row-start-1 pb-16">

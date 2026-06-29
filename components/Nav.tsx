@@ -3,10 +3,19 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Nav() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    if (pathname === '/') {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10)
@@ -18,12 +27,17 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-fond border-b border-bordure transition-shadow duration-300 ${
-        scrolled ? 'shadow-sm' : ''
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 border-b border-bordure"
+      style={{
+        backgroundColor: scrolled ? 'rgba(250,250,248,0.85)' : '#FAFAF8',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+        boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',
+        transition: 'background-color 300ms ease, backdrop-filter 300ms ease, box-shadow 300ms ease',
+      }}
     >
       <nav className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link href="/" aria-label="AHADI Group — accueil" style={{ textDecoration: 'none' }}>
+        <Link href="/" onClick={handleLogoClick} aria-label="AHADI Group — accueil" style={{ textDecoration: 'none' }}>
           <Image
             src="/logo.png"
             alt="AHADI Group"
@@ -47,7 +61,7 @@ export default function Nav() {
           </a>
           <a
             href="#contact"
-            className="bg-ahadi text-white text-sm px-5 py-2 rounded-full hover:opacity-90 transition-opacity"
+            className="btn-primary bg-ahadi text-white text-sm px-5 py-2 rounded-full"
           >
             Nous contacter
           </a>
@@ -90,7 +104,7 @@ export default function Nav() {
           </a>
           <a
             href="#contact"
-            className="bg-ahadi text-white text-sm px-5 py-3 rounded-full text-center"
+            className="btn-primary bg-ahadi text-white text-sm px-5 py-3 rounded-full text-center"
             onClick={closeMenu}
           >
             Nous contacter

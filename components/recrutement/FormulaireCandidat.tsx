@@ -324,8 +324,8 @@ export default function FormulaireCandidat() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3.5 rounded-xl text-white font-medium transition-opacity disabled:opacity-60"
-                    style={{ backgroundColor: '#267253', fontSize: '14px' }}
+                    className="btn-primary bg-ahadi w-full py-3.5 rounded-xl text-white font-medium disabled:opacity-60"
+                    style={{ fontSize: '14px' }}
                   >
                     {loading ? (
                       <span className="flex items-center justify-center gap-2">
