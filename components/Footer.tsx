@@ -39,7 +39,7 @@ export default function Footer() {
             >
               Nous rejoindre
             </a>
-            <p className="font-serif text-ahadi" style={{ fontStyle: 'italic' }}>
+            <p className="font-serif text-ahadi">
               La promesse tenue.
             </p>
           </div>

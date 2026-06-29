@@ -229,7 +229,7 @@ export default function Scope() {
           </div>
           <h2
             className="font-serif text-noir mb-4"
-            style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontStyle: 'italic' }}
+            style={{ fontSize: 'clamp(22px, 3vw, 34px)' }}
           >
             Un projet, quel qu&apos;il soit.
           </h2>

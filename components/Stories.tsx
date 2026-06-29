@@ -21,7 +21,7 @@ export default function Stories() {
           </div>
           <h2
             className="font-serif text-noir mb-4"
-            style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontStyle: 'italic' }}
+            style={{ fontSize: 'clamp(22px, 3vw, 34px)' }}
           >
             Deux histoires vraies. Un seul constat.
           </h2>
@@ -67,7 +67,6 @@ export default function Stories() {
               className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
               style={{
                 fontSize: '14px',
-                fontStyle: 'italic',
                 borderRadius: '10px 0 10px 10px',
               }}
             >
@@ -95,7 +94,6 @@ export default function Stories() {
               className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
               style={{
                 fontSize: '14px',
-                fontStyle: 'italic',
                 borderRadius: '0 10px 10px 10px',
               }}
             >
@@ -129,7 +127,6 @@ export default function Stories() {
               className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
               style={{
                 fontSize: '14px',
-                fontStyle: 'italic',
                 borderRadius: '10px 0 10px 10px',
               }}
             >
@@ -159,7 +156,6 @@ export default function Stories() {
               className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
               style={{
                 fontSize: '14px',
-                fontStyle: 'italic',
                 borderRadius: '0 10px 10px 10px',
               }}
             >

@@ -56,7 +56,7 @@ export default function Contact() {
             </div>
             <h2
               className="font-serif text-noir mb-5"
-              style={{ fontSize: 'clamp(22px, 3vw, 34px)', fontStyle: 'italic' }}
+              style={{ fontSize: 'clamp(22px, 3vw, 34px)' }}
             >
               Parlons de votre projet.
             </h2>
@@ -118,7 +118,7 @@ export default function Contact() {
             <div className="bg-ahadi px-8 py-6">
               <h3
                 className="font-serif text-white mb-1"
-                style={{ fontSize: '20px', fontStyle: 'italic' }}
+                style={{ fontSize: '20px' }}
               >
                 Déposez votre dossier
               </h3>
@@ -147,7 +147,7 @@ export default function Contact() {
                   </div>
                   <p
                     className="font-serif mb-2"
-                    style={{ fontSize: '18px', fontStyle: 'italic', color: '#1A4A35' }}
+                    style={{ fontSize: '18px', color: '#1A4A35' }}
                   >
                     Votre demande a bien été envoyée.
                   </p>

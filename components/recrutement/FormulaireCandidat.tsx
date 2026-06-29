@@ -74,7 +74,7 @@ export default function FormulaireCandidat() {
             >
               Postulez en ligne.
               <br />
-              <em>Directement.</em>
+              Directement.
             </h2>
 
             <div className="mb-8">
@@ -114,7 +114,7 @@ export default function FormulaireCandidat() {
             >
               <p
                 className="font-serif text-gris"
-                style={{ fontSize: '14px', fontStyle: 'italic', lineHeight: '1.7' }}
+                style={{ fontSize: '14px', lineHeight: '1.7' }}
               >
                 &ldquo;Nous ne cherchons pas des diplômes.
                 Nous cherchons des hommes et des femmes
@@ -134,7 +134,7 @@ export default function FormulaireCandidat() {
             <div className="px-8 py-6" style={{ backgroundColor: '#267253' }}>
               <h3
                 className="font-serif text-white"
-                style={{ fontSize: '20px', fontStyle: 'italic' }}
+                style={{ fontSize: '20px' }}
               >
                 Votre candidature
               </h3>
@@ -172,7 +172,7 @@ export default function FormulaireCandidat() {
                   </svg>
                   <p
                     className="font-serif"
-                    style={{ fontSize: '18px', fontStyle: 'italic', marginBottom: '12px' }}
+                    style={{ fontSize: '18px', marginBottom: '12px' }}
                   >
                     Candidature envoyée.
                   </p>

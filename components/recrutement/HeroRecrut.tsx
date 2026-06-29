@@ -14,7 +14,7 @@ export default function HeroRecrut() {
 
         <h1
           className="font-serif text-noir mb-6 max-w-2xl"
-          style={{ fontSize: 'clamp(26px, 4vw, 42px)', fontStyle: 'italic', lineHeight: '1.2' }}
+          style={{ fontSize: 'clamp(26px, 4vw, 42px)', lineHeight: '1.2', fontWeight: 800 }}
         >
           Vous voulez faire partie<br />
           de ceux qui tiennent<br />

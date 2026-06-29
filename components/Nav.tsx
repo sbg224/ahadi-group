@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -22,7 +23,7 @@ export default function Nav() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" aria-label="AHADI Group — accueil">
+        <Link href="/" aria-label="AHADI Group — accueil" style={{ textDecoration: 'none' }}>
           <Image
             src="/logo.png"
             alt="AHADI Group"
@@ -32,7 +33,7 @@ export default function Nav() {
             style={{ height: '44px', width: 'auto' }}
             priority
           />
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           <a href="#histoire" className="text-sm text-gris hover:text-noir transition-colors">

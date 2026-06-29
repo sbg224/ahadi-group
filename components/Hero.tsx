@@ -14,14 +14,12 @@ export default function Hero() {
 
         <h1
           className="font-serif text-noir mb-12 max-w-3xl"
-          style={{ fontSize: 'clamp(26px, 4vw, 42px)', lineHeight: '1.25' }}
+          style={{ fontSize: 'clamp(26px, 4vw, 42px)', lineHeight: '1.25', fontWeight: 800 }}
         >
-          <em>
-            En Guinée, des milliers de projets échouent
-            <br className="hidden md:block" /> chaque année.{' '}
-            <span className="text-ahadi">Pas faute de moyens.</span>
-            <br className="hidden md:block" /> Faute d&apos;un regard honnête sur le terrain.
-          </em>
+          En Guinée, des milliers de projets échouent
+          <br className="hidden md:block" /> chaque année.{' '}
+          <span className="text-ahadi">Pas faute de moyens.</span>
+          <br className="hidden md:block" /> Faute d&apos;un regard honnête sur le terrain.
         </h1>
 
         <div className="grid md:grid-cols-2 gap-12 mb-16">
@@ -73,7 +71,7 @@ export default function Hero() {
               <br />
               Nous rendons des comptes.
             </p>
-            <p className="font-serif text-ahadi" style={{ fontSize: '16px', fontStyle: 'italic' }}>
+            <p className="font-serif text-ahadi" style={{ fontSize: '16px' }}>
               Là où vous ne pouvez pas être, nous y sommes.
             </p>
           </div>

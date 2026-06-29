@@ -15,7 +15,7 @@ export default function LegalLayout({ title, children }: Props) {
         </a>
         <h1
           className="font-serif text-noir mb-10"
-          style={{ fontSize: '32px', fontStyle: 'italic', lineHeight: '1.2' }}
+          style={{ fontSize: '32px', lineHeight: '1.2' }}
         >
           {title}
         </h1>
