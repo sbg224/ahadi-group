@@ -27,8 +27,8 @@ export default function Nav() {
           <Image
             src="/logo.png"
             alt="AHADI Group"
-            width={320}
-            height={122}
+            width={1164}
+            height={453}
             className="object-contain"
             style={{ height: '44px', width: 'auto' }}
             priority
