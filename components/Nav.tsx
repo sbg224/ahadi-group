@@ -30,7 +30,7 @@ export default function Nav() {
             width={1164}
             height={453}
             className="object-contain"
-            style={{ height: '44px', width: 'auto' }}
+            style={{ height: '56px', width: 'auto' }}
             priority
           />
         </Link>
