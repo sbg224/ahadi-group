@@ -1,16 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
-const GOOGLE_FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSc5_p10nRmaWoFkMT_PATEguNg-qDQHRAsR9w24PFFA9GzOSA/viewform'
-
-const postes = [
-  'Superviseur de chantier BTP',
-  'Superviseur de plantation / agriculture',
-  'Superviseur commercial',
-  'Superviseur administratif',
-]
+import { GOOGLE_FORM_URL, POSTES_VALIDES } from '@/lib/constants'
 
 export default function FormulaireCandidat() {
   const [nom, setNom] = useState('')
@@ -25,7 +16,7 @@ export default function FormulaireCandidat() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     setError('')
@@ -253,7 +244,7 @@ export default function FormulaireCandidat() {
                       <option value="" disabled>
                         Choisir un poste...
                       </option>
-                      {postes.map((p) => (
+                      {POSTES_VALIDES.map((p) => (
                         <option key={p} value={p}>
                           {p}
                         </option>
