@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -21,28 +22,16 @@ export default function Nav() {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3" aria-label="AHADI Group — accueil">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-            <rect width="36" height="36" rx="9" fill="#F0F7F4" />
-            <line x1="18" y1="4" x2="6" y2="32" stroke="#1A1A18" strokeWidth="3" strokeLinecap="round" />
-            <line x1="18" y1="4" x2="30" y2="32" stroke="#1A1A18" strokeWidth="3" strokeLinecap="round" />
-            <line x1="9" y1="21" x2="27" y2="21" stroke="#267253" strokeWidth="2.5" strokeLinecap="round" />
-            <circle cx="12" cy="21" r="4" fill="#267253" />
-          </svg>
-          <div>
-            <div
-              className="font-serif text-noir"
-              style={{ fontSize: '20px', letterSpacing: '3px' }}
-            >
-              AHADI
-            </div>
-            <div
-              className="text-ahadi uppercase"
-              style={{ fontSize: '9px', letterSpacing: '3px' }}
-            >
-              LA PROMESSE TENUE
-            </div>
-          </div>
+        <a href="#" aria-label="AHADI Group — accueil">
+          <Image
+            src="/logo.png"
+            alt="AHADI Group"
+            width={320}
+            height={122}
+            className="object-contain"
+            style={{ height: '44px', width: 'auto' }}
+            priority
+          />
         </a>
 
         <div className="hidden md:flex items-center gap-8">

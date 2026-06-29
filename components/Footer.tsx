@@ -13,19 +13,15 @@ export default function Footer() {
             Group ne gère, ne détient ni ne transfère des fonds pour le compte de ses clients.
           </p>
           <div className="flex flex-wrap gap-5">
-            {[
-              'Conditions générales de prestation',
-              'Politique de confidentialité',
-              'Mentions légales',
-            ].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-gris-muted text-xs hover:text-noir transition-colors"
-              >
-                {link}
-              </a>
-            ))}
+            <a href="/conditions-generales" className="text-gris-muted text-xs hover:text-noir transition-colors">
+              Conditions générales de prestation
+            </a>
+            <a href="/politique-de-confidentialite" className="text-gris-muted text-xs hover:text-noir transition-colors">
+              Politique de confidentialité
+            </a>
+            <a href="/mentions-legales" className="text-gris-muted text-xs hover:text-noir transition-colors">
+              Mentions légales
+            </a>
           </div>
         </div>
       </div>

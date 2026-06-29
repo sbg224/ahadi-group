@@ -1,30 +1,43 @@
 'use client'
 
 import { useState } from 'react'
+import { WHATSAPP_URL } from '@/lib/constants'
 
 export default function Contact() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setStatus('loading')
+    setLoading(true)
+    setError('')
+
     const form = e.currentTarget
-    const data = new FormData(form)
+    const fd = new FormData(form)
+
     try {
-      const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID ?? 'xdkgppzb'
-      const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nom: fd.get('nom'),
+          contact: fd.get('contact'),
+          typeProjet: fd.get('type_projet'),
+          situation: fd.get('situation'),
+        }),
       })
+
       if (res.ok) {
-        setStatus('success')
+        setSuccess(true)
         form.reset()
       } else {
-        setStatus('error')
+        setError('Une erreur est survenue. Veuillez réessayer.')
       }
     } catch {
-      setStatus('error')
+      setError('Une erreur est survenue. Veuillez réessayer.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -32,6 +45,7 @@ export default function Contact() {
     <section id="contact" className="py-20 px-6 bg-fond">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-start">
+
           {/* Informations */}
           <div>
             <div
@@ -70,15 +84,17 @@ export default function Contact() {
                       stroke="#267253"
                       strokeWidth="1.5"
                     />
-                    <path
-                      d="M8.5 10.5c.5 1 1.5 3 4 4"
-                      stroke="#267253"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
+                    <path d="M8.5 10.5c.5 1 1.5 3 4 4" stroke="#267253" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                 </div>
-                <span className="text-gris text-sm">WhatsApp disponible</span>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gris text-sm hover:text-noir transition-colors"
+                >
+                  WhatsApp disponible
+                </a>
               </div>
 
               <div className="flex items-center gap-3">
@@ -92,7 +108,7 @@ export default function Contact() {
                     <circle cx="12" cy="9" r="2.5" stroke="#267253" strokeWidth="1.5" />
                   </svg>
                 </div>
-                <span className="text-gris text-sm">Conakry, Guinée · Diaspora France & Europe</span>
+                <span className="text-gris text-sm">Conakry, Guinée · Diaspora France &amp; Europe</span>
               </div>
             </div>
           </div>
@@ -110,31 +126,39 @@ export default function Contact() {
             </div>
 
             <div className="bg-white p-8">
-              {status === 'success' ? (
-                <div className="text-center py-8">
-                  <div className="w-12 h-12 bg-ahadi-light rounded-full flex items-center justify-center mx-auto mb-4">
+              {success ? (
+                <div
+                  className="flex flex-col items-center justify-center text-center py-12 px-4 rounded-xl"
+                  style={{ minHeight: '360px', backgroundColor: '#F0F7F4' }}
+                >
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center mb-5"
+                    style={{ backgroundColor: '#C8DDD6' }}
+                  >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <path
                         d="M5 12l5 5 9-10"
-                        stroke="#267253"
+                        stroke="#1A4A35"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
                   </div>
-                  <p className="font-serif text-noir" style={{ fontStyle: 'italic' }}>
-                    Message envoyé.
+                  <p
+                    className="font-serif mb-2"
+                    style={{ fontSize: '18px', fontStyle: 'italic', color: '#1A4A35' }}
+                  >
+                    Votre demande a bien été envoyée.
                   </p>
-                  <p className="text-gris text-sm mt-2">Nous vous répondons sous 24h.</p>
+                  <p style={{ fontSize: '13px', color: '#1A4A35', opacity: 0.8 }}>
+                    Nous vous répondons sous 24h.
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
                   <div>
-                    <label
-                      htmlFor="nom"
-                      className="text-xs text-gris-muted mb-1.5 block"
-                    >
+                    <label htmlFor="nom" className="text-xs text-gris-muted mb-1.5 block">
                       Nom complet
                     </label>
                     <input
@@ -149,10 +173,7 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="contact"
-                      className="text-xs text-gris-muted mb-1.5 block"
-                    >
+                    <label htmlFor="contact" className="text-xs text-gris-muted mb-1.5 block">
                       Email ou WhatsApp
                     </label>
                     <input
@@ -167,10 +188,7 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="type_projet"
-                      className="text-xs text-gris-muted mb-1.5 block"
-                    >
+                    <label htmlFor="type_projet" className="text-xs text-gris-muted mb-1.5 block">
                       Type de projet
                     </label>
                     <select
@@ -191,10 +209,7 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="situation"
-                      className="text-xs text-gris-muted mb-1.5 block"
-                    >
+                    <label htmlFor="situation" className="text-xs text-gris-muted mb-1.5 block">
                       Votre situation
                     </label>
                     <textarea
@@ -208,23 +223,43 @@ export default function Contact() {
                     />
                   </div>
 
-                  {status === 'error' && (
-                    <p className="text-red-500 text-xs">
-                      Une erreur est survenue. Veuillez réessayer.
-                    </p>
+                  {error && (
+                    <p className="text-red-500 text-xs">{error}</p>
                   )}
 
                   <button
                     type="submit"
-                    disabled={status === 'loading'}
+                    disabled={loading}
                     className="bg-noir text-white rounded-full py-3 text-sm font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60"
                   >
-                    {status === 'loading' ? (
-                      'Envoi en cours...'
+                    {loading ? (
+                      <>
+                        <svg
+                          className="animate-spin h-4 w-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          aria-hidden="true"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          />
+                        </svg>
+                        Envoi en cours...
+                      </>
                     ) : (
                       <>
-                        Envoyer ma demande{' '}
-                        <span aria-hidden="true">→</span>
+                        Envoyer ma demande <span aria-hidden="true">→</span>
                       </>
                     )}
                   </button>
