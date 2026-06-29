@@ -22,7 +22,7 @@ export default function Nav() {
         scrolled ? 'shadow-sm' : ''
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <nav className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link href="/" aria-label="AHADI Group — accueil" style={{ textDecoration: 'none' }}>
           <Image
             src="/logo.png"
@@ -30,7 +30,7 @@ export default function Nav() {
             width={1164}
             height={453}
             className="object-contain"
-            style={{ height: '56px', width: 'auto' }}
+            style={{ height: '72px', width: 'auto' }}
             priority
           />
         </Link>
