@@ -191,7 +191,7 @@ const domains = [
 
 export default function Scope() {
   return (
-    <section id="services" className="py-20 px-6 bg-fond">
+    <section id="services" className="py-20 px-6" style={{ background: '#FFFFFF' }}>
       <div className="max-w-6xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <div

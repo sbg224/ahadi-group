@@ -34,7 +34,11 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -160])
 
   return (
-    <section ref={ref} className="pt-32 pb-20 px-6 bg-fond relative overflow-hidden">
+    <section
+      ref={ref}
+      className="pt-32 pb-20 px-6 relative overflow-hidden"
+      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, #F0F7F4 100%)' }}
+    >
       <motion.div className="max-w-6xl mx-auto" style={{ y }}>
         {/* Eyebrow */}
         <motion.div

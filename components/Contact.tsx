@@ -42,7 +42,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 bg-fond">
+    <section
+      id="contact"
+      className="py-20 px-6"
+      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #F0F7F4 100%)' }}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-start">
 

@@ -12,7 +12,11 @@ const dotStyle = {
 
 export default function Stories() {
   return (
-    <section id="histoire" className="py-20 px-6 bg-fond">
+    <section
+      id="histoire"
+      className="py-20 px-6"
+      style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 60%, #FFFFFF 100%)' }}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="max-w-2xl mb-16">
           <div
