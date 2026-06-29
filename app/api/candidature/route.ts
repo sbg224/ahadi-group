@@ -17,6 +17,13 @@ export async function POST(req: NextRequest) {
   const motivation = fd.get('motivation') as string
   const cv = fd.get('cv') as File | null
 
+  let cvAttachment: { filename: string; content: string } | undefined
+  if (cv && cv.size > 0) {
+    const cvBuffer = await cv.arrayBuffer()
+    const cvBase64 = Buffer.from(cvBuffer).toString('base64')
+    cvAttachment = { filename: cv.name, content: cvBase64 }
+  }
+
   if (!nom || !email || !telephone || !ville || !poste || !motivation) {
     return NextResponse.json({ error: 'Champs requis manquants' }, { status: 400 })
   }
@@ -26,6 +33,7 @@ export async function POST(req: NextRequest) {
     from: 'AHADI Group <contact@ahadi-group.com>',
     to: ['contact@ahadi-group.com'],
     subject: `Nouvelle candidature — ${poste} — ${nom}`,
+    attachments: cvAttachment ? [cvAttachment] : [],
     html: `
       <h2 style="color:#1A4A35;font-family:Georgia,serif">Nouvelle candidature reçue</h2>
       <table style="border-collapse:collapse;width:100%;max-width:560px;font-family:sans-serif;font-size:14px">
