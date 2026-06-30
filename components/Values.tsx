@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 
 function cardVariant(i: number) {
@@ -88,6 +89,8 @@ const UserIcon = () => (
 )
 
 export default function Values() {
+  const [blockHovered, setBlockHovered] = useState(false)
+
   return (
     <section
       id="valeurs"
@@ -156,6 +159,20 @@ export default function Values() {
             visite.
           </p>
         </div>
+
+        {/* Bloc flottant — grille + Sérénité */}
+        <div
+          onMouseEnter={() => setBlockHovered(true)}
+          onMouseLeave={() => setBlockHovered(false)}
+          style={{
+            borderRadius: '20px',
+            transform: blockHovered ? 'translateY(-4px) translateZ(0)' : 'translateZ(0)',
+            boxShadow: blockHovered
+              ? '0 28px 70px -10px rgba(28,43,53,0.3), 0 12px 30px -8px rgba(28,43,53,0.18)'
+              : '0 20px 60px -10px rgba(28,43,53,0.25), 0 8px 24px -8px rgba(28,43,53,0.15)',
+            transition: 'box-shadow 0.4s ease, transform 0.4s ease',
+          }}
+        >
 
         {/* Grille asymétrique */}
         <div
@@ -388,6 +405,7 @@ export default function Values() {
           </div>
           <div aria-hidden="true" style={NUM_STYLE_LIGHT}>04</div>
         </motion.div>
+        </div>{/* fin bloc flottant */}
 
         {/* Closing bar */}
         <div
