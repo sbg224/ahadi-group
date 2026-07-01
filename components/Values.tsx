@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import ScrollWatermark from '@/components/ScrollWatermark'
 
 function cardVariant(i: number) {
   return {
@@ -88,36 +89,124 @@ const UserIcon = () => (
   </svg>
 )
 
+const SereneIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" fill="white" fillOpacity="0.15" stroke="white" strokeWidth="1.5" />
+    <path
+      d="M8 12.5l2.5 2.5 5-5.5"
+      stroke="white"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
+
+type MobileValueCard = {
+  numeral: string
+  background: string
+  border?: string
+  iconBg: string
+  icon: React.ReactNode
+  tag?: { label: string; color: string; background: string }
+  title: string
+  titleColor: string
+  body: React.ReactNode
+  extra?: React.ReactNode
+  numeralColor: string
+  dividerColor: string
+}
+
+const mobileCards: MobileValueCard[] = [
+  {
+    numeral: '01',
+    background: '#267253',
+    iconBg: 'rgba(255,255,255,0.15)',
+    icon: <ShieldIcon />,
+    title: 'Intégrité',
+    titleColor: '#F0F7F4',
+    body: (
+      <>
+        Nous ne gérons pas votre argent. Notre rôle est de témoigner, pas d&apos;exécuter.
+        C&apos;est cette indépendance qui fonde notre valeur.
+      </>
+    ),
+    numeralColor: 'rgba(255,255,255,0.4)',
+    dividerColor: 'rgba(255,255,255,0.15)',
+  },
+  {
+    numeral: '02',
+    background: '#1C2B35',
+    iconBg: '#267253',
+    icon: <DocumentIcon />,
+    tag: { label: 'Notre méthode', color: '#5DBF8A', background: 'rgba(93,191,138,0.15)' },
+    title: 'Transparence',
+    titleColor: '#F0F7F4',
+    body: (
+      <>
+        Chaque visite produit un rapport. Chaque rapport contient des preuves visuelles.
+        Photos, vidéos, observations terrain, vous voyez exactement ce que nous avons vu.
+        Sans filtre. Sans omission.
+      </>
+    ),
+    numeralColor: 'rgba(240,247,244,0.4)',
+    dividerColor: 'rgba(255,255,255,0.08)',
+  },
+  {
+    numeral: '03',
+    background: '#F0F7F4',
+    border: '1px solid #C8DDD6',
+    iconBg: 'rgba(38,114,83,0.12)',
+    icon: <UserIcon />,
+    title: 'Confiance',
+    titleColor: '#1A1A18',
+    body: (
+      <>
+        Légalement constitués, identifiables, responsables. Vous confiez votre projet à une
+        structure officielle enregistrée en Guinée.
+      </>
+    ),
+    numeralColor: 'rgba(26,26,24,0.4)',
+    dividerColor: 'rgba(0,0,0,0.1)',
+  },
+  {
+    numeral: '04',
+    background: '#267253',
+    iconBg: 'rgba(255,255,255,0.15)',
+    icon: <SereneIcon />,
+    title: 'Sérénité',
+    titleColor: '#F0F7F4',
+    body: (
+      <>
+        Investir depuis l&apos;étranger sans pouvoir vérifier, c&apos;est épuisant. Notre mission,
+        c&apos;est de vous rendre cette tranquillité d&apos;esprit que rien ne peut remplacer.
+      </>
+    ),
+    extra: (
+      <>
+        <p className="font-serif" style={{ fontSize: '17px', fontWeight: 700, color: '#F0F7F4', marginTop: '16px' }}>
+          Investir et dormir tranquille.
+        </p>
+        <p style={{ fontSize: '12px', color: 'rgba(240,247,244,0.55)', marginTop: '4px' }}>
+          En temps réel. Avec des preuves.
+        </p>
+      </>
+    ),
+    numeralColor: 'rgba(255,255,255,0.4)',
+    dividerColor: 'rgba(255,255,255,0.2)',
+  },
+]
+
 export default function Values() {
   const [blockHovered, setBlockHovered] = useState(false)
 
   return (
     <section
       id="valeurs"
-      className="py-20 px-6 relative overflow-hidden"
+      className="py-20 md:py-36 px-6 relative overflow-hidden"
       style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #F0F7F4 100%)' }}
     >
-      {/* Filigrane AHADI — adapté au fond clair */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          fontFamily: 'Outfit, sans-serif',
-          fontSize: '220px',
-          fontWeight: 900,
-          color: 'rgba(38,114,83,0.06)',
-          letterSpacing: '-10px',
-          pointerEvents: 'none',
-          userSelect: 'none',
-          zIndex: 0,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        AHADI
-      </div>
+      <ScrollWatermark tone="light" />
 
       <div className="max-w-6xl mx-auto" style={{ position: 'relative', zIndex: 1 }}>
 
@@ -160,7 +249,8 @@ export default function Values() {
           </p>
         </div>
 
-        {/* Bloc flottant — grille + Sérénité */}
+        {/* Bloc flottant — grille + Sérénité (desktop uniquement, disposition diagonale) */}
+        <div className="hidden md:block">
         <div
           onMouseEnter={() => setBlockHovered(true)}
           onMouseLeave={() => setBlockHovered(false)}
@@ -406,6 +496,73 @@ export default function Values() {
           <div aria-hidden="true" style={NUM_STYLE_LIGHT}>04</div>
         </motion.div>
         </div>{/* fin bloc flottant */}
+        </div>{/* fin hidden md:block desktop */}
+
+        {/* Mobile — liste verticale simple, une carte pleine largeur par engagement */}
+        <div className="md:hidden flex flex-col gap-4">
+          {mobileCards.map((card, i) => (
+            <motion.div
+              key={card.numeral}
+              variants={cardVariant(i)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-50px' }}
+              style={{
+                background: card.background,
+                border: card.border,
+                borderRadius: '20px',
+                padding: '28px',
+              }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <span style={{ fontSize: '11px', color: card.numeralColor, letterSpacing: '2px' }}>
+                  {card.numeral}
+                </span>
+                <div style={{ flex: 1, height: '1px', background: card.dividerColor }} />
+              </div>
+
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: '12px',
+                  background: card.iconBg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '18px',
+                }}
+              >
+                {card.icon}
+              </div>
+
+              {card.tag && (
+                <span
+                  style={{
+                    display: 'inline-block',
+                    padding: '4px 12px',
+                    borderRadius: '100px',
+                    background: card.tag.background,
+                    color: card.tag.color,
+                    fontSize: '11px',
+                    letterSpacing: '1px',
+                    marginBottom: '14px',
+                  }}
+                >
+                  {card.tag.label}
+                </span>
+              )}
+
+              <h3 className="font-serif mb-3" style={{ fontSize: '22px', fontWeight: 800, color: card.titleColor }}>
+                {card.title}
+              </h3>
+              <p style={{ fontSize: '13px', color: card.titleColor === '#1A1A18' ? '#5A5A52' : 'rgba(240,247,244,0.7)', lineHeight: 1.75 }}>
+                {card.body}
+              </p>
+              {card.extra}
+            </motion.div>
+          ))}
+        </div>
 
         {/* Closing bar */}
         <div

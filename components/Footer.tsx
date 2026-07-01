@@ -1,8 +1,11 @@
+import ScrollWatermark from '@/components/ScrollWatermark'
+
 export default function Footer() {
   return (
     <footer>
-      <div className="border-t border-bordure px-6 py-10" style={{ backgroundColor: '#F4F4F0' }}>
-        <div className="max-w-6xl mx-auto">
+      <div className="relative overflow-hidden border-t border-bordure px-6 py-10" style={{ backgroundColor: '#F4F4F0' }}>
+        <ScrollWatermark tone="light" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <p className="text-gris text-xs leading-relaxed mb-5 max-w-3xl">
             <span style={{ fontWeight: 500, color: '#1A1A18' }}>
               Mentions légales & conditions
@@ -26,8 +29,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="bg-noir px-6 py-5">
-        <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
+      <div className="relative overflow-hidden bg-noir px-6 py-5">
+        <ScrollWatermark tone="dark" />
+        <div className="relative z-10 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
           <p style={{ fontSize: '11px', color: '#5A5A52' }}>
             © 2026 AHADI Group SARLU · Conakry, Guinée · Entreprise légalement constituée
           </p>

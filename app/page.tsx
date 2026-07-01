@@ -1,5 +1,7 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+import PreuveTerrain from '@/components/PreuveTerrain'
+import Methode from '@/components/Methode'
 import Devise from '@/components/Devise'
 import Legit from '@/components/Legit'
 import Stories from '@/components/Stories'
@@ -17,9 +19,11 @@ export default function Home() {
         <Hero />
         <Devise />
         <Legit />
+        <Methode />
         <Stories />
         <Scope />
         <Values />
+        <PreuveTerrain />
         <Contact />
       </main>
       <Footer />

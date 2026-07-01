@@ -1,6 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Mail, MessageCircle, MapPin } from 'lucide-react'
+import SealBadge from '@/components/icons/SealBadge'
+import AuroraHalos from '@/components/AuroraHalos'
+import ScrollWatermark from '@/components/ScrollWatermark'
 import { WHATSAPP_URL } from '@/lib/constants'
 
 export default function Contact() {
@@ -44,10 +49,18 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-20 px-6"
+      className="relative overflow-hidden py-20 md:py-36 px-6"
       style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #F0F7F4 100%)' }}
     >
-      <div className="max-w-6xl mx-auto">
+      <AuroraHalos />
+      <ScrollWatermark tone="light" />
+      <motion.div
+        className="relative z-10 max-w-6xl mx-auto"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
         <div className="grid md:grid-cols-2 gap-16 items-start">
 
           {/* Informations */}
@@ -70,27 +83,13 @@ export default function Contact() {
             </p>
 
             <div className="flex flex-col gap-5">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-ahadi-light flex items-center justify-center shrink-0">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="2" y="4" width="20" height="16" rx="2" stroke="#267253" strokeWidth="1.5" />
-                    <path d="M2 8l10 6 10-6" stroke="#267253" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </div>
+              <div className="flex items-center gap-4">
+                <SealBadge icon={<Mail size={22} color="white" strokeWidth={1.7} aria-hidden="true" />} size={56} />
                 <span className="text-gris text-sm">contact@ahadi-group.com</span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-ahadi-light flex items-center justify-center shrink-0">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.34C8.45 21.51 10.18 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Z"
-                      stroke="#267253"
-                      strokeWidth="1.5"
-                    />
-                    <path d="M8.5 10.5c.5 1 1.5 3 4 4" stroke="#267253" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                </div>
+              <div className="flex items-center gap-4">
+                <SealBadge icon={<MessageCircle size={22} color="white" strokeWidth={1.7} aria-hidden="true" />} size={56} />
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
@@ -101,24 +100,15 @@ export default function Contact() {
                 </a>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-ahadi-light flex items-center justify-center shrink-0">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path
-                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"
-                      stroke="#267253"
-                      strokeWidth="1.5"
-                    />
-                    <circle cx="12" cy="9" r="2.5" stroke="#267253" strokeWidth="1.5" />
-                  </svg>
-                </div>
+              <div className="flex items-center gap-4">
+                <SealBadge icon={<MapPin size={22} color="white" strokeWidth={1.7} aria-hidden="true" />} size={56} />
                 <span className="text-gris text-sm">Conakry, Guinée · Diaspora France &amp; Europe</span>
               </div>
             </div>
           </div>
 
           {/* Formulaire */}
-          <div className="rounded-2xl overflow-hidden border border-bordure shadow-sm">
+          <div className="rounded-2xl overflow-hidden shadow-sm">
             <div className="bg-ahadi px-8 py-6">
               <h3
                 className="font-serif text-white mb-1"
@@ -129,7 +119,7 @@ export default function Contact() {
               <p className="text-white/70 text-xs">Nous vous répondons sous 24h</p>
             </div>
 
-            <div className="bg-white p-8">
+            <div className="glass-panel p-8">
               {success ? (
                 <div
                   className="flex flex-col items-center justify-center text-center py-12 px-4 rounded-xl"
@@ -276,7 +266,7 @@ export default function Contact() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

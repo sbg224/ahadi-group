@@ -2,6 +2,9 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import HeroBackground from '@/components/HeroBackground'
+import { ParallaxOrb } from '@/components/ParallaxOrb'
+import AhadiSeal from '@/components/AhadiSeal'
 
 type Word = { text: string; green?: boolean }
 
@@ -39,7 +42,18 @@ export default function Hero() {
       className="pt-32 pb-20 px-6 relative overflow-hidden"
       style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, #F0F7F4 100%)' }}
     >
-      <motion.div className="max-w-6xl mx-auto" style={{ y }}>
+      <HeroBackground />
+
+      <div
+        className="hidden md:block absolute -right-16 top-1/3 -translate-y-1/2 pointer-events-none"
+        aria-hidden="true"
+      >
+        <ParallaxOrb yRange={[60, -60]} rotateRange={[0, 18]}>
+          <AhadiSeal size={340} opacity={0.5} />
+        </ParallaxOrb>
+      </div>
+
+      <motion.div className="max-w-6xl mx-auto relative z-10" style={{ y }}>
         {/* Eyebrow */}
         <motion.div
           className="flex items-center gap-4 mb-8"

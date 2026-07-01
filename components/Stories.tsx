@@ -1,4 +1,8 @@
+'use client'
+
+import { motion } from 'framer-motion'
 import TimelineDraw from '@/components/animations/TimelineDraw'
+import ScrollWatermark from '@/components/ScrollWatermark'
 
 const dotStyle = {
   width: 14,
@@ -14,10 +18,17 @@ export default function Stories() {
   return (
     <section
       id="histoire"
-      className="py-20 px-6"
+      className="relative overflow-hidden py-20 md:py-36 px-6"
       style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 60%, #FFFFFF 100%)' }}
     >
-      <div className="max-w-6xl mx-auto">
+      <ScrollWatermark tone="light" />
+      <motion.div
+        className="relative z-10 max-w-6xl mx-auto"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
+      >
         <div className="max-w-2xl mb-16">
           <div
             className="uppercase text-gris-leger mb-3"
@@ -162,7 +173,7 @@ export default function Stories() {
             </blockquote>
           </article>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

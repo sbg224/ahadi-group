@@ -1,180 +1,38 @@
+import { Eye, FileText, ShieldCheck, MapPin, GraduationCap, Heart } from 'lucide-react'
+import SealBadge from '@/components/icons/SealBadge'
+
+const profileIconProps = { size: 28, color: 'white', strokeWidth: 1.6, 'aria-hidden': true } as const
+
 const profileItems = [
   {
     title: "Regard indépendant",
     body: "L’œil droit, sans parti pris. Vous observez, vous constatez vous ne prenez pas position pour l’entrepreneur.",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <ellipse
-          cx="12"
-          cy="12"
-          rx="8"
-          ry="5.5"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <circle
-          cx="12"
-          cy="12"
-          r="2.5"
-          fill="#267253"
-          fillOpacity="0.12"
-          stroke="#267253"
-          strokeWidth="1.5"
-        />
-        <circle cx="12" cy="12" r="1" fill="#267253" />
-      </svg>
-    ),
+    icon: <Eye {...profileIconProps} />,
   },
   {
     title: "Rigueur documentaire",
     body: "Chaque constat doit être écrit, daté, archivé. Vous maîtrisez le rapport écrit et savez présenter un suivi clair.",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9l-6-6Z"
-          fill="#267253"
-          fillOpacity="0.08"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M14 3v6h6"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8 13h8M8 17h5"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <FileText {...profileIconProps} />,
   },
   {
     title: "Intégrité sans compromis",
     body: "On ne vous achète pas. Ni par l’entrepreneur, ni par qui que ce soit. Votre parole vaut votre réputation.",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2Z"
-          fill="#267253"
-          fillOpacity="0.08"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8.5 12l2.5 2.5 4-5"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    icon: <ShieldCheck {...profileIconProps} />,
   },
   {
     title: "Mobilité terrain",
     body: "Les projets sont en régions. Le fait de pouvoir se déplacer sur site est indispensible et constitutif du poste.",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"
-          fill="#267253"
-          fillOpacity="0.08"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <circle cx="12" cy="9" r="2.5" stroke="#267253" strokeWidth="1.5" />
-      </svg>
-    ),
+    icon: <MapPin {...profileIconProps} />,
   },
   {
     title: "Niveau Bac minimum",
     body: "Formation technique, BTP, agronomie, commerce ou expérience équivalente reconnue sur le terrain.",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 3L2 8l10 5 10-5-10-5Z"
-          fill="#267253"
-          fillOpacity="0.1"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M6 10.5v5c0 0 1.5 3 6 3s6-3 6-3v-5"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M20 8v5"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
+    icon: <GraduationCap {...profileIconProps} />,
   },
   {
     title: "Sens du service",
     body: "Vous travaillez pour la paix d’esprit du client, pas pour vous mettre en avant. Le service prime sur l’ego.",
-    icon: (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M12 21C12 21 3 14 3 8.5a4.5 4.5 0 019-1.8A4.5 4.5 0 0121 8.5C21 14 12 21 12 21Z"
-          fill="#267253"
-          fillOpacity="0.1"
-          stroke="#267253"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    icon: <Heart {...profileIconProps} />,
   },
 ];
 
@@ -228,7 +86,7 @@ export default function ValeursSuperviseur() {
                 key={item.title}
                 className="bg-white border border-bordure rounded-2xl p-6"
               >
-                <div className="mb-4">{item.icon}</div>
+                <SealBadge icon={item.icon} size={64} className="mb-4" />
                 <h3
                   className="text-noir mb-2"
                   style={{ fontSize: "14px", fontWeight: 500 }}
