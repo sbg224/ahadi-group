@@ -2,22 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { resend } from '@/lib/resend'
 import { escHtml } from '@/lib/email'
 import { checkRateLimit } from '@/lib/rateLimit'
+import { isAllowedOrigin } from '@/lib/origin'
 
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
-
-const ALLOWED_ORIGINS = [
-  'https://ahadi-group.com',
-  'https://www.ahadi-group.com',
-]
-
-function isAllowedOrigin(origin: string | null): boolean {
-  if (process.env.NODE_ENV !== 'production') return true
-  if (!origin) return false
-  if (ALLOWED_ORIGINS.includes(origin)) return true
-  // Autorise les previews Vercel
-  if (/^https:\/\/ahadi-group[a-z0-9-]*\.vercel\.app$/.test(origin)) return true
-  return false
-}
 
 export async function POST(req: NextRequest) {
   // Vérification CSRF par Origin
@@ -45,6 +32,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Corps de requête invalide' }, { status: 400 })
   }
 
+  // Honeypot : champ invisible pour les humains — s'il est rempli, c'est un
+  // bot. Réponse succès factice pour ne pas lui signaler la détection.
+  if (String(body.site_web ?? '').trim()) {
+    return NextResponse.json({ success: true })
+  }
+
   const nom = String(body.nom ?? '').trim()
   const contact = String(body.contact ?? '').trim()
   const typeProjet = String(body.typeProjet ?? '').trim()
@@ -62,9 +55,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Un champ dépasse la taille autorisée' }, { status: 400 })
   }
 
+  // replyTo seulement si le champ libre "Email ou WhatsApp" contient un email
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)
+
   const { data, error } = await resend.emails.send({
     from: `AHADI Group <${CONTACT_EMAIL}>`,
     to: [CONTACT_EMAIL],
+    ...(isEmail ? { replyTo: contact } : {}),
     subject: `Nouveau dossier — ${typeProjet || 'Non précisé'} — ${nom}`,
     html: `
       <h2>Nouveau dossier reçu</h2>

@@ -30,6 +30,7 @@ export default function Contact() {
           contact: fd.get('contact'),
           typeProjet: fd.get('type_projet'),
           situation: fd.get('situation'),
+          site_web: fd.get('site_web'),
         }),
       })
 
@@ -37,10 +38,11 @@ export default function Contact() {
         setSuccess(true)
         form.reset()
       } else {
-        setError('Une erreur est survenue. Veuillez réessayer.')
+        const json = await res.json().catch(() => null)
+        setError(json?.error ?? 'Une erreur est survenue. Veuillez réessayer.')
       }
     } catch {
-      setError('Une erreur est survenue. Veuillez réessayer.')
+      setError('Une erreur est survenue. Vérifiez votre connexion et réessayez.')
     } finally {
       setLoading(false)
     }
@@ -150,7 +152,19 @@ export default function Contact() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  {/* Honeypot anti-spam — invisible et hors tabulation */}
+                  <div className="sr-only" aria-hidden="true">
+                    <label htmlFor="site_web">Ne pas remplir ce champ</label>
+                    <input
+                      id="site_web"
+                      name="site_web"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
                   <div>
                     <label htmlFor="nom" className="text-xs text-gris-muted mb-1.5 block">
                       Nom complet
@@ -218,7 +232,7 @@ export default function Contact() {
                   </div>
 
                   {error && (
-                    <p className="text-red-500 text-xs">{error}</p>
+                    <p role="alert" className="text-red-500 text-xs">{error}</p>
                   )}
 
                   <button

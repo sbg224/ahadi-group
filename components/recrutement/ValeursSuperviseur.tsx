@@ -6,7 +6,7 @@ const profileIconProps = { size: 28, color: 'white', strokeWidth: 1.6, 'aria-hid
 const profileItems = [
   {
     title: "Regard indépendant",
-    body: "L’œil droit, sans parti pris. Vous observez, vous constatez vous ne prenez pas position pour l’entrepreneur.",
+    body: "L’œil droit, sans parti pris. Vous observez, vous constatez, vous ne prenez pas position pour l’entrepreneur.",
     icon: <Eye {...profileIconProps} />,
   },
   {
@@ -21,7 +21,7 @@ const profileItems = [
   },
   {
     title: "Mobilité terrain",
-    body: "Les projets sont en régions. Le fait de pouvoir se déplacer sur site est indispensible et constitutif du poste.",
+    body: "Les projets sont en régions. Le fait de pouvoir se déplacer sur site est indispensable et constitutif du poste.",
     icon: <MapPin {...profileIconProps} />,
   },
   {
@@ -39,7 +39,7 @@ const profileItems = [
 const offerPoints = [
   {
     title: "Mission rémunérée",
-    body: "Honoraires définis par contrat de mission avant tout démarrage. Pas d’ambigüité, pas de surprise.",
+    body: "Honoraires définis par contrat de mission avant tout démarrage. Pas d’ambiguïté, pas de surprise.",
   },
   {
     title: "Réseau professionnel",

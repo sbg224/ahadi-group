@@ -3,21 +3,9 @@ import { resend } from '@/lib/resend'
 import { escHtml } from '@/lib/email'
 import { checkRateLimit } from '@/lib/rateLimit'
 import { GOOGLE_FORM_URL, POSTES_VALIDES, CV_MAX_SIZE } from '@/lib/constants'
+import { isAllowedOrigin } from '@/lib/origin'
 
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
-
-const ALLOWED_ORIGINS = [
-  'https://ahadi-group.com',
-  'https://www.ahadi-group.com',
-]
-
-function isAllowedOrigin(origin: string | null): boolean {
-  if (process.env.NODE_ENV !== 'production') return true
-  if (!origin) return false
-  if (ALLOWED_ORIGINS.includes(origin)) return true
-  if (/^https:\/\/ahadi-group[a-z0-9-]*\.vercel\.app$/.test(origin)) return true
-  return false
-}
 
 const ALLOWED_CV_TYPES = [
   'application/pdf',
@@ -60,6 +48,12 @@ export async function POST(req: NextRequest) {
   }
 
   const fd = await req.formData()
+
+  // Honeypot : champ invisible pour les humains — s'il est rempli, c'est un
+  // bot. Réponse succès factice pour ne pas lui signaler la détection.
+  if (String(fd.get('site_web') ?? '').trim()) {
+    return NextResponse.json({ success: true })
+  }
 
   const nom = String(fd.get('nom') ?? '').trim()
   const email = String(fd.get('email') ?? '').trim()
@@ -132,6 +126,7 @@ export async function POST(req: NextRequest) {
   const { data, error } = await resend.emails.send({
     from: `AHADI Group <${CONTACT_EMAIL}>`,
     to: [CONTACT_EMAIL],
+    replyTo: email,
     subject: `Nouvelle candidature — ${poste} — ${nom}`,
     attachments: cvAttachment ? [cvAttachment] : [],
     html: `

@@ -11,6 +11,7 @@ export default function FormulaireCandidat() {
   const [poste, setPoste] = useState('')
   const [motivation, setMotivation] = useState('')
   const [cv, setCv] = useState<File | null>(null)
+  const [honeypot, setHoneypot] = useState('')
 
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -29,6 +30,7 @@ export default function FormulaireCandidat() {
     fd.append('poste', poste)
     fd.append('motivation', motivation)
     if (cv) fd.append('cv', cv)
+    fd.append('site_web', honeypot)
 
     try {
       const res = await fetch('/api/candidature', { method: 'POST', body: fd })
@@ -188,10 +190,24 @@ export default function FormulaireCandidat() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Honeypot anti-spam — invisible et hors tabulation */}
+                  <div className="sr-only" aria-hidden="true">
+                    <label htmlFor="candidat-site-web">Ne pas remplir ce champ</label>
+                    <input
+                      id="candidat-site-web"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                    />
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs text-gris-muted mb-1.5">Nom complet</label>
+                      <label htmlFor="candidat-nom" className="block text-xs text-gris-muted mb-1.5">Nom complet</label>
                       <input
+                        id="candidat-nom"
                         type="text"
                         className={inputClass}
                         placeholder="Mamadou Diallo"
@@ -201,8 +217,9 @@ export default function FormulaireCandidat() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gris-muted mb-1.5">Ville</label>
+                      <label htmlFor="candidat-ville" className="block text-xs text-gris-muted mb-1.5">Ville</label>
                       <input
+                        id="candidat-ville"
                         type="text"
                         className={inputClass}
                         placeholder="Conakry"
@@ -214,8 +231,9 @@ export default function FormulaireCandidat() {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-gris-muted mb-1.5">Email</label>
+                    <label htmlFor="candidat-email" className="block text-xs text-gris-muted mb-1.5">Email</label>
                     <input
+                      id="candidat-email"
                       type="email"
                       className={inputClass}
                       placeholder="vous@example.com"
@@ -226,8 +244,9 @@ export default function FormulaireCandidat() {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-gris-muted mb-1.5">Téléphone</label>
+                    <label htmlFor="candidat-telephone" className="block text-xs text-gris-muted mb-1.5">Téléphone</label>
                     <input
+                      id="candidat-telephone"
                       type="tel"
                       className={inputClass}
                       placeholder="+224 6xx xx xx xx"
@@ -238,8 +257,9 @@ export default function FormulaireCandidat() {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-gris-muted mb-1.5">Poste visé</label>
+                    <label htmlFor="candidat-poste" className="block text-xs text-gris-muted mb-1.5">Poste visé</label>
                     <select
+                      id="candidat-poste"
                       className={inputClass}
                       value={poste}
                       onChange={(e) => setPoste(e.target.value)}
@@ -258,10 +278,11 @@ export default function FormulaireCandidat() {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-gris-muted mb-1.5">
+                    <label htmlFor="candidat-motivation" className="block text-xs text-gris-muted mb-1.5">
                       Lettre de motivation
                     </label>
                     <textarea
+                      id="candidat-motivation"
                       className={inputClass}
                       placeholder="Expliquez pourquoi vous souhaitez rejoindre AHADI Group, votre rapport à l'intégrité et ce qui vous qualifie pour ce rôle..."
                       value={motivation}
@@ -272,7 +293,7 @@ export default function FormulaireCandidat() {
                   </div>
 
                   <div>
-                    <label className="block text-xs text-gris-muted mb-1.5">CV</label>
+                    <label htmlFor="candidat-cv" className="block text-xs text-gris-muted mb-1.5">CV</label>
                     <label className="flex items-center gap-4 border border-dashed border-bordure-forte rounded-xl p-4 cursor-pointer hover:border-ahadi transition-colors">
                       <svg
                         width="20"
@@ -308,6 +329,7 @@ export default function FormulaireCandidat() {
                         </p>
                       </div>
                       <input
+                        id="candidat-cv"
                         type="file"
                         accept=".pdf,.doc,.docx"
                         className="sr-only"
@@ -319,6 +341,7 @@ export default function FormulaireCandidat() {
 
                   {error && (
                     <p
+                      role="alert"
                       className="rounded-xl px-4 py-3 text-sm"
                       style={{ backgroundColor: '#FEF2F2', color: '#991B1B' }}
                     >

@@ -29,8 +29,9 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Pas de filigrane ici : le bandeau fait ~60px de haut, le texte
+          AHADI/GROUP (min 6rem) y serait rogné à plus de 90 % */}
       <div className="relative overflow-hidden bg-noir px-6 py-5">
-        <ScrollWatermark tone="dark" />
         <div className="relative z-10 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
           <p style={{ fontSize: '11px', color: '#5A5A52' }}>
             © 2026 AHADI Group SARLU · Conakry, Guinée · Entreprise légalement constituée

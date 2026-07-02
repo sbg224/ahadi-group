@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, DM_Sans } from 'next/font/google'
 import { SITE_URL } from '@/lib/constants'
+import MotionProvider from '@/components/MotionProvider'
 import './globals.css'
 
 const outfit = Outfit({
@@ -41,7 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <noscript>
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   )
