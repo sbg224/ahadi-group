@@ -36,7 +36,7 @@ export default function PreuveTerrain() {
   return (
     <section
       className="relative overflow-hidden px-6 py-20 md:py-36"
-      style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 100%)' }}
+      style={{ background: 'linear-gradient(to bottom, var(--ahadi-light) 0%, #FFFFFF 100%)' }}
     >
       <ScrollWatermark tone="light" />
       <div className="relative z-10 max-w-5xl mx-auto">
@@ -70,7 +70,7 @@ export default function PreuveTerrain() {
             {/* Photo terrain */}
             <div
               className="relative p-8 md:p-10 flex flex-col justify-between min-h-[260px]"
-              style={{ background: 'linear-gradient(135deg, #267253 0%, #1A4A35 100%)' }}
+              style={{ background: 'linear-gradient(135deg, var(--ahadi) 0%, var(--ahadi-dark) 100%)' }}
             >
               <span className="uppercase text-white/50" style={{ fontSize: '10px', letterSpacing: '2px' }}>
                 Exemple de rapport de supervision

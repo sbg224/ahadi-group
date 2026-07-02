@@ -52,7 +52,7 @@ export default function Contact() {
     <section
       id="contact"
       className="relative overflow-hidden py-20 md:py-36 px-6"
-      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #F0F7F4 100%)' }}
+      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, var(--ahadi-light) 100%)' }}
     >
       <AuroraHalos />
       <ScrollWatermark tone="light" />
@@ -125,11 +125,11 @@ export default function Contact() {
               {success ? (
                 <div
                   className="flex flex-col items-center justify-center text-center py-12 px-4 rounded-xl"
-                  style={{ minHeight: '360px', backgroundColor: '#F0F7F4' }}
+                  style={{ minHeight: '360px', backgroundColor: 'var(--ahadi-light)' }}
                 >
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center mb-5"
-                    style={{ backgroundColor: '#C8DDD6' }}
+                    style={{ backgroundColor: 'var(--ahadi-border)' }}
                   >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                       <path
@@ -143,11 +143,11 @@ export default function Contact() {
                   </div>
                   <p
                     className="font-serif mb-2"
-                    style={{ fontSize: '18px', color: '#1A4A35' }}
+                    style={{ fontSize: '18px', color: 'var(--ahadi-dark)' }}
                   >
                     Votre demande a bien été envoyée.
                   </p>
-                  <p style={{ fontSize: '13px', color: '#1A4A35', opacity: 0.8 }}>
+                  <p style={{ fontSize: '13px', color: 'var(--ahadi-dark)', opacity: 0.8 }}>
                     Nous vous répondons sous 24h.
                   </p>
                 </div>
@@ -175,7 +175,7 @@ export default function Contact() {
                       type="text"
                       required
                       className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi"
-                      style={{ backgroundColor: '#F7F7F5' }}
+                      style={{ backgroundColor: 'var(--fond-input)' }}
                       placeholder="Votre nom"
                     />
                   </div>
@@ -190,7 +190,7 @@ export default function Contact() {
                       type="text"
                       required
                       className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi"
-                      style={{ backgroundColor: '#F7F7F5' }}
+                      style={{ backgroundColor: 'var(--fond-input)' }}
                       placeholder="email@exemple.com ou +33..."
                     />
                   </div>
@@ -204,7 +204,7 @@ export default function Contact() {
                       name="type_projet"
                       required
                       className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi appearance-none"
-                      style={{ backgroundColor: '#F7F7F5' }}
+                      style={{ backgroundColor: 'var(--fond-input)' }}
                     >
                       <option value="">Choisir...</option>
                       <option>Construction / Rénovation</option>
@@ -226,7 +226,7 @@ export default function Contact() {
                       required
                       rows={4}
                       className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi resize-none"
-                      style={{ backgroundColor: '#F7F7F5' }}
+                      style={{ backgroundColor: 'var(--fond-input)' }}
                       placeholder="Décrivez votre situation..."
                     />
                   </div>
@@ -272,7 +272,7 @@ export default function Contact() {
                     )}
                   </button>
 
-                  <p className="text-center" style={{ fontSize: '11px', color: '#C0C0B8' }}>
+                  <p className="text-center" style={{ fontSize: '11px', color: 'var(--gris-leger)' }}>
                     Vos informations restent strictement confidentielles.
                   </p>
                 </form>

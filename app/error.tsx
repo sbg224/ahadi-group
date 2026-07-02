@@ -17,7 +17,7 @@ export default function Error({
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center text-center px-6"
-      style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 60%, #FFFFFF 100%)' }}
+      style={{ background: 'linear-gradient(to bottom, var(--ahadi-light) 0%, #FFFFFF 60%, #FFFFFF 100%)' }}
     >
       <div
         className="uppercase text-gris-leger mb-4"

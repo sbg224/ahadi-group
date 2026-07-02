@@ -32,10 +32,10 @@ export default function SealBadge({
       style={{
         width: size,
         height: size,
-        background: 'linear-gradient(135deg, #267253 0%, #1A4A35 100%)',
-        boxShadow: `0 0 0 ${Math.max(2, Math.round(size * 0.035))}px rgba(212,175,55,0.35), 0 ${Math.round(
+        background: 'linear-gradient(135deg, var(--ahadi) 0%, var(--ahadi-dark) 100%)',
+        boxShadow: `0 0 0 ${Math.max(2, Math.round(size * 0.035))}px color-mix(in srgb, var(--or) 35%, transparent), 0 ${Math.round(
           size * 0.14,
-        )}px ${Math.round(size * 0.28)}px -${Math.round(size * 0.12)}px rgba(38,114,83,0.4)`,
+        )}px ${Math.round(size * 0.28)}px -${Math.round(size * 0.12)}px color-mix(in srgb, var(--ahadi) 40%, transparent)`,
       }}
     >
       <motion.div

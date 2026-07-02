@@ -42,7 +42,7 @@ export default function Hero() {
     <section
       ref={ref}
       className="pt-32 pb-20 px-6 relative overflow-hidden"
-      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, #F0F7F4 100%)' }}
+      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, var(--ahadi-light) 100%)' }}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <CanvasNetwork />
@@ -131,7 +131,7 @@ export default function Hero() {
             </p>
             <p className="text-gris text-sm leading-relaxed">
               Ce n&apos;est pas de la malchance. C&apos;est{' '}
-              <span style={{ fontWeight: 500, color: '#1A1A18' }}>
+              <span style={{ fontWeight: 500, color: 'var(--noir)' }}>
                 l&apos;absence d&apos;un intermédiaire de confiance
               </span>{' '}
               entre celui qui investit et celui qui exécute.

@@ -86,7 +86,7 @@ export default function Scope() {
               </h3>
               <p
                 className="leading-relaxed"
-                style={{ fontSize: '12px', color: '#8B8B82', lineHeight: '1.6' }}
+                style={{ fontSize: '12px', color: 'var(--gris-leger)', lineHeight: '1.6' }}
               >
                 {domain.description}
               </p>

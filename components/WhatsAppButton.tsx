@@ -12,8 +12,8 @@ export default function WhatsAppButton() {
       <div
         className="w-14 h-14 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
         style={{
-          background: 'linear-gradient(135deg, #267253 0%, #1A4A35 100%)',
-          boxShadow: '0 0 0 2px rgba(212,175,55,0.4), 0 8px 20px -6px rgba(38,114,83,0.4)',
+          background: 'linear-gradient(135deg, var(--ahadi) 0%, var(--ahadi-dark) 100%)',
+          boxShadow: '0 0 0 2px color-mix(in srgb, var(--or) 40%, transparent), 0 8px 20px -6px color-mix(in srgb, var(--ahadi) 40%, transparent)',
         }}
       >
         <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true">

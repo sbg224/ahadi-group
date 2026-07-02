@@ -5,11 +5,20 @@
   --ahadi-light: #F0F7F4;
   --ahadi-border: #C8DDD6;
   --ahadi-dark: #1A4A35;
+  --ahadi-hover: #1A5C3A;
+  --or: #D4AF37;
+  --vert-vif: #5DBF8A;
+  --ardoise: #1C2B35;
   --fond: #FAFAF8;
+  --fond-alt: #F4F4F0;
+  --fond-input: #F7F7F5;
   --noir: #1A1A18;
   --gris: #5A5A52;
   --gris-muted: #6B6B62;
-  --gris-leger: #9B9B90;
+  /* #77776C : 4,53:1 sur blanc (WCAG AA) — ne pas éclaircir sous #77776C */
+  --gris-leger: #77776C;
+  /* Texte secondaire sur fond --noir : 4,50:1 (WCAG AA) */
+  --gris-sur-sombre: #82827A;
   --bordure: #E8E8E2;
   --bordure-forte: #EBEBEB;
 }
@@ -19,7 +28,14 @@
   --color-ahadi-light: var(--ahadi-light);
   --color-ahadi-border: var(--ahadi-border);
   --color-ahadi-dark: var(--ahadi-dark);
+  --color-ahadi-hover: var(--ahadi-hover);
+  --color-or: var(--or);
+  --color-vert-vif: var(--vert-vif);
+  --color-ardoise: var(--ardoise);
   --color-fond: var(--fond);
+  --color-fond-alt: var(--fond-alt);
+  --color-fond-input: var(--fond-input);
+  --color-gris-sur-sombre: var(--gris-sur-sombre);
   --color-noir: var(--noir);
   --color-gris: var(--gris);
   --color-gris-muted: var(--gris-muted);
@@ -48,11 +64,11 @@ body {
 
 /* Primaire — remplissage slide + lift au hover */
 .btn-primary {
-  background-image: linear-gradient(to right, #1A5C3A 50%, #267253 50%);
+  background-image: linear-gradient(to right, var(--ahadi-hover) 50%, var(--ahadi) 50%);
   background-size: 201% 100%;
   background-position: right center;
   transform: translateY(0);
-  box-shadow: 0 0 0 rgba(38, 114, 83, 0);
+  box-shadow: 0 0 0 transparent;
   transition:
     background-position 0.35s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
@@ -61,16 +77,16 @@ body {
 .btn-primary:hover {
   background-position: left center !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(38, 114, 83, 0.28) !important;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ahadi) 28%, transparent) !important;
 }
 .btn-primary:active {
   transform: translateY(0px) !important;
-  box-shadow: 0 2px 8px rgba(38, 114, 83, 0.18) !important;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ahadi) 18%, transparent) !important;
 }
 .btn-primary:disabled,
 .btn-primary:disabled:hover {
   background-image: none;
-  background-color: #267253;
+  background-color: var(--ahadi);
   transform: none !important;
   box-shadow: none !important;
 }
@@ -78,7 +94,7 @@ body {
 /* Secondaire — inversion couleur + lift au hover */
 .btn-secondary {
   transform: translateY(0);
-  box-shadow: 0 0 0 rgba(38, 114, 83, 0);
+  box-shadow: 0 0 0 transparent;
   transition:
     background-color 0.25s ease,
     color 0.25s ease,
@@ -87,15 +103,15 @@ body {
     box-shadow 0.25s ease !important;
 }
 .btn-secondary:hover {
-  background-color: #267253 !important;
+  background-color: var(--ahadi) !important;
   color: #fff !important;
-  border-color: #267253 !important;
+  border-color: var(--ahadi) !important;
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 24px rgba(38, 114, 83, 0.2) !important;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ahadi) 20%, transparent) !important;
 }
 .btn-secondary:active {
   transform: translateY(0px) !important;
-  box-shadow: 0 2px 8px rgba(38, 114, 83, 0.14) !important;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ahadi) 14%, transparent) !important;
 }
 
 /* ===== SHIELD PULSE ===== */
@@ -111,7 +127,7 @@ body {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  background: #267253;
+  background: var(--ahadi);
   animation: shield-pulse 2.5s ease-out infinite;
   opacity: 0;
   pointer-events: none;
@@ -131,7 +147,7 @@ body {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(38, 114, 83, 0.08);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--ahadi) 8%, transparent);
 }
 
 /* ===== REDUCED MOTION ===== */

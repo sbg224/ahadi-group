@@ -9,7 +9,7 @@ export default function LegalLayout({ title, children }: Props) {
   return (
     <div
       className="min-h-screen py-16 px-6"
-      style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 35%, #FFFFFF 100%)' }}
+      style={{ background: 'linear-gradient(to bottom, var(--ahadi-light) 0%, #FFFFFF 35%, #FFFFFF 100%)' }}
     >
       <div style={{ maxWidth: '680px', margin: '0 auto' }}>
         <Link

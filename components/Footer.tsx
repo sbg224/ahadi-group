@@ -3,11 +3,11 @@ import ScrollWatermark from '@/components/ScrollWatermark'
 export default function Footer() {
   return (
     <footer>
-      <div className="relative overflow-hidden border-t border-bordure px-6 py-10" style={{ backgroundColor: '#F4F4F0' }}>
+      <div className="relative overflow-hidden border-t border-bordure px-6 py-10" style={{ backgroundColor: 'var(--fond-alt)' }}>
         <ScrollWatermark tone="light" />
         <div className="relative z-10 max-w-6xl mx-auto">
           <p className="text-gris text-xs leading-relaxed mb-5 max-w-3xl">
-            <span style={{ fontWeight: 500, color: '#1A1A18' }}>
+            <span style={{ fontWeight: 500, color: 'var(--noir)' }}>
               Mentions légales & conditions
             </span>{' '}
             AHADI Group SARLU, Société à Responsabilité Limitée Unipersonnelle immatriculée au RCCM
@@ -33,14 +33,14 @@ export default function Footer() {
           AHADI/GROUP (min 6rem) y serait rogné à plus de 90 % */}
       <div className="relative overflow-hidden bg-noir px-6 py-5">
         <div className="relative z-10 max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
-          <p style={{ fontSize: '11px', color: '#5A5A52' }}>
+          <p style={{ fontSize: '11px', color: 'var(--gris-sur-sombre)' }}>
             © 2026 AHADI Group SARLU · Conakry, Guinée · Entreprise légalement constituée
           </p>
           <div className="flex items-center gap-6">
             <a
               href="/nous-rejoindre"
               className="hover:underline"
-              style={{ color: '#267253', fontSize: '12px' }}
+              style={{ color: 'var(--ahadi)', fontSize: '12px' }}
             >
               Nous rejoindre
             </a>

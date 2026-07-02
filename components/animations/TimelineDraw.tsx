@@ -7,9 +7,9 @@ const dotStyle = {
   width: 14,
   height: 14,
   borderRadius: '50%',
-  backgroundColor: '#267253',
-  border: '3px solid #FAFAF8',
-  boxShadow: '0 0 0 2px #267253',
+  backgroundColor: 'var(--ahadi)',
+  border: '3px solid var(--fond)',
+  boxShadow: '0 0 0 2px var(--ahadi)',
   flexShrink: 0,
 }
 
@@ -27,7 +27,7 @@ export default function TimelineDraw() {
       className="col-start-2 row-start-1 row-span-2 flex justify-center"
       aria-hidden="true"
     >
-      <div className="relative w-px bg-[#D4E8DF] h-full" style={{ overflow: 'visible' }}>
+      <div className="relative w-px bg-ahadi-border h-full" style={{ overflow: 'visible' }}>
         <motion.div
           className="absolute inset-0 bg-ahadi"
           style={{ scaleY, transformOrigin: 'top' }}

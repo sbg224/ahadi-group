@@ -29,7 +29,7 @@ export default function Nav() {
     <header
       className="fixed top-0 left-0 right-0 z-50 border-b border-bordure"
       style={{
-        backgroundColor: scrolled ? 'rgba(250,250,248,0.85)' : '#FAFAF8',
+        backgroundColor: scrolled ? 'color-mix(in srgb, var(--fond) 85%, transparent)' : 'var(--fond)',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
         boxShadow: scrolled ? '0 1px 20px rgba(0,0,0,0.06)' : 'none',

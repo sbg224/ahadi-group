@@ -18,7 +18,7 @@ export default function Legit() {
           <SealBadge icon={<ShieldCheck size={24} color="white" strokeWidth={1.7} aria-hidden="true" />} size={48} />
         </span>
         <p className="text-sm text-gris leading-relaxed">
-          <span style={{ fontWeight: 500, color: '#1A1A18' }}>
+          <span style={{ fontWeight: 500, color: 'var(--noir)' }}>
             Entreprise légalement constituée en Guinée.
           </span>{' '}
           SARLU enregistrée, immatriculée au RCCM de Conakry. Vous traitez avec une structure

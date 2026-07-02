@@ -8,7 +8,7 @@ type ScrollWatermarkProps = {
 }
 
 const TONE_COLOR = {
-  light: 'rgba(26,26,24,0.05)',
+  light: 'color-mix(in srgb, var(--noir) 5%, transparent)',
   dark: 'rgba(255,255,255,0.06)',
 }
 

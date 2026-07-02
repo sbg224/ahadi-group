@@ -8,10 +8,66 @@ const dotStyle = {
   width: 14,
   height: 14,
   borderRadius: '50%',
-  backgroundColor: '#267253',
-  border: '3px solid #FAFAF8',
-  boxShadow: '0 0 0 2px #267253',
+  backgroundColor: 'var(--ahadi)',
+  border: '3px solid var(--fond)',
+  boxShadow: '0 0 0 2px var(--ahadi)',
   flexShrink: 0,
+}
+
+// Source unique des deux histoires — consommée par les rendus desktop
+// (timeline 3 colonnes) et mobile (colonne simple), pour qu'une
+// modification de texte ne se fasse qu'à un seul endroit.
+type Story = {
+  title: string
+  paragraphs: string[]
+  quote: string
+  quoteRadius: string
+}
+
+const stories: Story[] = [
+  {
+    title: "La plantation d'un ami",
+    paragraphs: [
+      "Un ami avait investi ses économies dans une plantation en Guinée. La famille sur place devait gérer. Mais entre les obligations du quotidien et les imprévus, personne n'était vraiment disponible. Personne ne vérifiait. Personne ne rendait de compte.",
+      "Quand il a pu revenir voir, il était trop tard. La plantation était perdue. Pas à cause d'une catastrophe naturelle. À cause d'un suivi qui n'existait pas.",
+    ],
+    quote:
+      "Ce n'est pas l'argent qu'il a perdu qui fait le plus mal. C'est de n'avoir jamais su ce qui se passait vraiment.",
+    quoteRadius: '10px 0 10px 10px',
+  },
+  {
+    title: 'La maison de mon père',
+    paragraphs: [
+      "Mon père a fait construire sa maison depuis l'étranger. Il payait, faisait confiance, attendait les nouvelles. Ce qu'il recevait comme information et ce qui se passait réellement sur le chantier, c'était deux réalités différentes.",
+      "Au final, il a dépensé deux fois ce qui était prévu. Et aujourd'hui, cette maison doit être reconstruite. Pas parce qu'il n'avait pas les moyens. Parce qu'il n'avait personne pour veiller.",
+    ],
+    quote:
+      "C'est pour cette maison-là, et pour toutes celles qui suivront, qu'AHADI Group existe.",
+    quoteRadius: '0 10px 10px 10px',
+  },
+]
+
+function StoryBody({ story }: { story: Story }) {
+  return (
+    <>
+      {story.paragraphs.map((paragraph, i) => (
+        <p
+          key={i}
+          className={`text-gris text-sm leading-relaxed ${
+            i === story.paragraphs.length - 1 ? 'mb-6' : 'mb-5'
+          }`}
+        >
+          {paragraph}
+        </p>
+      ))}
+      <blockquote
+        className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
+        style={{ fontSize: '14px', borderRadius: story.quoteRadius }}
+      >
+        {story.quote}
+      </blockquote>
+    </>
+  )
 }
 
 export default function Stories() {
@@ -19,7 +75,7 @@ export default function Stories() {
     <section
       id="histoire"
       className="relative overflow-hidden py-20 md:py-36 px-6"
-      style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 60%, #FFFFFF 100%)' }}
+      style={{ background: 'linear-gradient(to bottom, var(--ahadi-light) 0%, #FFFFFF 60%, #FFFFFF 100%)' }}
     >
       <ScrollWatermark tone="light" />
       <motion.div
@@ -56,122 +112,32 @@ export default function Stories() {
           {/* Spine — progressive draw */}
           <TimelineDraw />
 
-          {/* Histoire 1 — gauche */}
-          <article className="col-start-1 row-start-1 pb-16">
-            <h3 className="text-noir mb-4" style={{ fontSize: '13px', fontWeight: 500 }}>
-              La plantation d&apos;un ami
-            </h3>
-            <p className="text-gris text-sm leading-relaxed mb-5">
-              Un ami avait investi ses économies dans une plantation en Guinée. La famille sur place
-              devait gérer. Mais entre les obligations du quotidien et les imprévus, personne
-              n&apos;était vraiment disponible. Personne ne vérifiait. Personne ne rendait de
-              compte.
-            </p>
-            <p className="text-gris text-sm leading-relaxed mb-6">
-              Quand il a pu revenir voir, il était trop tard. La plantation était perdue. Pas à
-              cause d&apos;une catastrophe naturelle. À cause d&apos;un suivi qui n&apos;existait
-              pas.
-            </p>
-            <blockquote
-              className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
-              style={{
-                fontSize: '14px',
-                borderRadius: '10px 0 10px 10px',
-              }}
+          {stories.map((story, i) => (
+            <article
+              key={story.title}
+              className={i === 0 ? 'col-start-1 row-start-1 pb-16' : 'col-start-3 row-start-2 pt-16'}
             >
-              Ce n&apos;est pas l&apos;argent qu&apos;il a perdu qui fait le plus mal. C&apos;est
-              de n&apos;avoir jamais su ce qui se passait vraiment.
-            </blockquote>
-          </article>
-
-          {/* Histoire 2 — droite */}
-          <article className="col-start-3 row-start-2 pt-16">
-            <h3 className="text-noir mb-4" style={{ fontSize: '13px', fontWeight: 500 }}>
-              La maison de mon père
-            </h3>
-            <p className="text-gris text-sm leading-relaxed mb-5">
-              Mon père a fait construire sa maison depuis l&apos;étranger. Il payait, faisait
-              confiance, attendait les nouvelles. Ce qu&apos;il recevait comme information et ce qui
-              se passait réellement sur le chantier, c&apos;était deux réalités différentes.
-            </p>
-            <p className="text-gris text-sm leading-relaxed mb-6">
-              Au final, il a dépensé deux fois ce qui était prévu. Et aujourd&apos;hui, cette maison
-              doit être reconstruite. Pas parce qu&apos;il n&apos;avait pas les moyens. Parce
-              qu&apos;il n&apos;avait personne pour veiller.
-            </p>
-            <blockquote
-              className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
-              style={{
-                fontSize: '14px',
-                borderRadius: '0 10px 10px 10px',
-              }}
-            >
-              C&apos;est pour cette maison-là, et pour toutes celles qui suivront,
-              qu&apos;AHADI Group existe.
-            </blockquote>
-          </article>
+              <h3 className="text-noir mb-4" style={{ fontSize: '13px', fontWeight: 500 }}>
+                {story.title}
+              </h3>
+              <StoryBody story={story} />
+            </article>
+          ))}
         </div>
 
         {/* Mobile — colonne unique */}
         <div className="md:hidden flex flex-col gap-12">
-          <article>
-            <div className="flex items-center gap-3 mb-4">
-              <div style={dotStyle} />
-              <h3 className="text-noir" style={{ fontSize: '13px', fontWeight: 500 }}>
-                La plantation d&apos;un ami
-              </h3>
-            </div>
-            <p className="text-gris text-sm leading-relaxed mb-5">
-              Un ami avait investi ses économies dans une plantation en Guinée. La famille sur place
-              devait gérer. Mais entre les obligations du quotidien et les imprévus, personne
-              n&apos;était vraiment disponible. Personne ne vérifiait. Personne ne rendait de
-              compte.
-            </p>
-            <p className="text-gris text-sm leading-relaxed mb-6">
-              Quand il a pu revenir voir, il était trop tard. La plantation était perdue. Pas à
-              cause d&apos;une catastrophe naturelle. À cause d&apos;un suivi qui n&apos;existait
-              pas.
-            </p>
-            <blockquote
-              className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
-              style={{
-                fontSize: '14px',
-                borderRadius: '10px 0 10px 10px',
-              }}
-            >
-              Ce n&apos;est pas l&apos;argent qu&apos;il a perdu qui fait le plus mal. C&apos;est
-              de n&apos;avoir jamais su ce qui se passait vraiment.
-            </blockquote>
-          </article>
-
-          <article>
-            <div className="flex items-center gap-3 mb-4">
-              <div style={dotStyle} />
-              <h3 className="text-noir" style={{ fontSize: '13px', fontWeight: 500 }}>
-                La maison de mon père
-              </h3>
-            </div>
-            <p className="text-gris text-sm leading-relaxed mb-5">
-              Mon père a fait construire sa maison depuis l&apos;étranger. Il payait, faisait
-              confiance, attendait les nouvelles. Ce qu&apos;il recevait comme information et ce qui
-              se passait réellement sur le chantier, c&apos;était deux réalités différentes.
-            </p>
-            <p className="text-gris text-sm leading-relaxed mb-6">
-              Au final, il a dépensé deux fois ce qui était prévu. Et aujourd&apos;hui, cette maison
-              doit être reconstruite. Pas parce qu&apos;il n&apos;avait pas les moyens. Parce
-              qu&apos;il n&apos;avait personne pour veiller.
-            </p>
-            <blockquote
-              className="bg-ahadi-light p-5 font-serif text-gris-muted leading-relaxed"
-              style={{
-                fontSize: '14px',
-                borderRadius: '0 10px 10px 10px',
-              }}
-            >
-              C&apos;est pour cette maison-là, et pour toutes celles qui suivront,
-              qu&apos;AHADI Group existe.
-            </blockquote>
-          </article>
+          {stories.map((story) => (
+            <article key={story.title}>
+              <div className="flex items-center gap-3 mb-4">
+                <div style={dotStyle} />
+                <h3 className="text-noir" style={{ fontSize: '13px', fontWeight: 500 }}>
+                  {story.title}
+                </h3>
+              </div>
+              <StoryBody story={story} />
+            </article>
+          ))}
         </div>
       </motion.div>
     </section>
