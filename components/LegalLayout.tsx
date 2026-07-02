@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface Props {
   title: string
   children: React.ReactNode
@@ -10,12 +12,12 @@ export default function LegalLayout({ title, children }: Props) {
       style={{ background: 'linear-gradient(to bottom, #F0F7F4 0%, #FFFFFF 35%, #FFFFFF 100%)' }}
     >
       <div style={{ maxWidth: '680px', margin: '0 auto' }}>
-        <a
+        <Link
           href="/"
           className="text-gris-muted text-sm hover:text-noir transition-colors mb-10 inline-block"
         >
           ← Retour à l&apos;accueil
-        </a>
+        </Link>
         <h1
           className="font-serif text-noir mb-10"
           style={{ fontSize: '32px', lineHeight: '1.2' }}

@@ -30,14 +30,19 @@ export default function FormulaireCandidat() {
     fd.append('motivation', motivation)
     if (cv) fd.append('cv', cv)
 
-    const res = await fetch('/api/candidature', { method: 'POST', body: fd })
-    const json = await res.json()
+    try {
+      const res = await fetch('/api/candidature', { method: 'POST', body: fd })
+      const json = await res.json()
 
-    setLoading(false)
-    if (!res.ok || json.error) {
-      setError(json.error ?? 'Une erreur est survenue. Veuillez réessayer.')
-    } else {
-      setSuccess(true)
+      if (!res.ok || json.error) {
+        setError(json.error ?? 'Une erreur est survenue. Veuillez réessayer.')
+      } else {
+        setSuccess(true)
+      }
+    } catch {
+      setError('Une erreur est survenue. Vérifiez votre connexion et réessayez.')
+    } finally {
+      setLoading(false)
     }
   }
 

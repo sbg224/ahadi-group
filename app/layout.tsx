@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Outfit, DM_Sans } from 'next/font/google'
+import { SITE_URL } from '@/lib/constants'
 import './globals.css'
 
 const outfit = Outfit({
@@ -14,6 +15,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'AHADI Group — Supervision de projets en Guinée',
   description:
     'AHADI Group supervise vos projets de construction, plantation, commerce et démarches administratives en Guinée. Votre représentant indépendant sur le terrain.',
@@ -34,7 +36,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${outfit.variable} ${dmSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* Sans JS, les états initiaux Framer Motion (opacity:0) rendraient tout le site invisible */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   )
 }

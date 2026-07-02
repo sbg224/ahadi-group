@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import HeroBackground from '@/components/HeroBackground'
+import CanvasNetwork from '@/components/CanvasNetwork'
 import { ParallaxOrb } from '@/components/ParallaxOrb'
 import AhadiSeal from '@/components/AhadiSeal'
 
@@ -17,12 +17,14 @@ const h1Words: Word[] = [
   { text: 'le' }, { text: 'terrain.' },
 ]
 
+// Délais courts : le h1 est l'élément LCP de la page, il doit être
+// entièrement visible en moins d'une seconde après hydratation
 const wordVariant = {
   hidden: { y: '110%', opacity: 0 },
   visible: (i: number) => ({
     y: 0,
     opacity: 1,
-    transition: { delay: 0.3 + i * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    transition: { delay: 0.1 + i * 0.025, duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
   }),
 }
 
@@ -42,7 +44,9 @@ export default function Hero() {
       className="pt-32 pb-20 px-6 relative overflow-hidden"
       style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, #F0F7F4 100%)' }}
     >
-      <HeroBackground />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <CanvasNetwork />
+      </div>
 
       <div
         className="hidden md:block absolute -right-16 top-1/3 -translate-y-1/2 pointer-events-none"
@@ -103,7 +107,7 @@ export default function Hero() {
         {/* Body */}
         <motion.div
           className="grid md:grid-cols-2 gap-12 mb-16"
-          variants={fadeUp(1.6)}
+          variants={fadeUp(0.7)}
           initial="hidden"
           animate="visible"
         >
@@ -164,7 +168,7 @@ export default function Hero() {
         {/* CTAs */}
         <motion.div
           className="flex flex-wrap items-center gap-4"
-          variants={fadeUp(1.8)}
+          variants={fadeUp(0.85)}
           initial="hidden"
           animate="visible"
         >

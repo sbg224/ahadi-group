@@ -50,21 +50,21 @@ export default function Nav() {
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
-          <a href="#histoire" className="text-sm text-gris hover:text-noir transition-colors">
+          <Link href="/#histoire" className="text-sm text-gris hover:text-noir transition-colors">
             Notre histoire
-          </a>
-          <a href="#services" className="text-sm text-gris hover:text-noir transition-colors">
+          </Link>
+          <Link href="/#services" className="text-sm text-gris hover:text-noir transition-colors">
             Nos services
-          </a>
-          <a href="#valeurs" className="text-sm text-gris hover:text-noir transition-colors">
+          </Link>
+          <Link href="/#valeurs" className="text-sm text-gris hover:text-noir transition-colors">
             Nos valeurs
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            href="/#contact"
             className="btn-primary bg-ahadi text-white text-sm px-5 py-2 rounded-full"
           >
             Nous contacter
-          </a>
+          </Link>
         </div>
 
         <button
@@ -93,22 +93,22 @@ export default function Nav() {
 
       {menuOpen && (
         <div className="md:hidden bg-fond border-t border-bordure px-6 py-6 flex flex-col gap-5">
-          <a href="#histoire" className="text-sm text-gris" onClick={closeMenu}>
+          <Link href="/#histoire" className="text-sm text-gris" onClick={closeMenu}>
             Notre histoire
-          </a>
-          <a href="#services" className="text-sm text-gris" onClick={closeMenu}>
+          </Link>
+          <Link href="/#services" className="text-sm text-gris" onClick={closeMenu}>
             Nos services
-          </a>
-          <a href="#valeurs" className="text-sm text-gris" onClick={closeMenu}>
+          </Link>
+          <Link href="/#valeurs" className="text-sm text-gris" onClick={closeMenu}>
             Nos valeurs
-          </a>
-          <a
-            href="#contact"
+          </Link>
+          <Link
+            href="/#contact"
             className="btn-primary bg-ahadi text-white text-sm px-5 py-3 rounded-full text-center"
             onClick={closeMenu}
           >
             Nous contacter
-          </a>
+          </Link>
         </div>
       )}
     </header>
