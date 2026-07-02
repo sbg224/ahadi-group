@@ -1,5 +1,7 @@
 import { Eye, FileText, ShieldCheck, MapPin, GraduationCap, Heart } from 'lucide-react'
 import SealBadge from '@/components/icons/SealBadge'
+import AuroraHalos from '@/components/AuroraHalos'
+import ScrollWatermark from '@/components/ScrollWatermark'
 
 const profileIconProps = { size: 28, color: 'white', strokeWidth: 1.6, 'aria-hidden': true } as const
 
@@ -54,8 +56,10 @@ const offerPoints = [
 export default function ValeursSuperviseur() {
   return (
     <>
-      <section className="px-6 py-20" style={{ backgroundColor: "#FAFAF8" }}>
-        <div className="max-w-6xl mx-auto">
+      <section className="relative overflow-hidden px-6 py-20" style={{ background: "#FFFFFF" }}>
+        <AuroraHalos />
+        <ScrollWatermark tone="light" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="mb-12">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-6 h-px bg-ahadi" />
@@ -84,7 +88,7 @@ export default function ValeursSuperviseur() {
             {profileItems.map((item) => (
               <div
                 key={item.title}
-                className="bg-white border border-bordure rounded-2xl p-6"
+                className="glass-panel rounded-2xl p-6"
               >
                 <SealBadge icon={item.icon} size={64} className="mb-4" />
                 <h3
@@ -106,10 +110,11 @@ export default function ValeursSuperviseur() {
       </section>
 
       <section
-        className="px-6 py-20 border-t border-bordure"
-        style={{ backgroundColor: "#F4F4F0" }}
+        className="relative overflow-hidden px-6 py-20 border-t border-bordure"
+        style={{ background: "linear-gradient(to bottom, var(--ahadi-light) 0%, #FFFFFF 100%)" }}
       >
-        <div className="max-w-6xl mx-auto">
+        <ScrollWatermark tone="light" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="mb-12">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-6 h-px bg-ahadi" />
@@ -139,7 +144,7 @@ export default function ValeursSuperviseur() {
               <div key={point.title}>
                 <div
                   className="w-8 mb-5"
-                  style={{ height: "1.5px", backgroundColor: "#267253" }}
+                  style={{ height: "1.5px", backgroundColor: "var(--ahadi)" }}
                 />
                 <h3
                   className="text-noir mb-3"

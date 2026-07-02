@@ -1,7 +1,13 @@
+import ScrollWatermark from '@/components/ScrollWatermark'
+
 export default function HeroRecrut() {
   return (
-    <section className="pt-32 pb-20 px-6" style={{ backgroundColor: '#FAFAF8' }}>
-      <div className="max-w-6xl mx-auto">
+    <section
+      className="relative overflow-hidden pt-32 pb-20 px-6"
+      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 30%, var(--ahadi-light) 100%)' }}
+    >
+      <ScrollWatermark tone="light" />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
           <div className="w-6 h-px bg-ahadi" />
           <span
@@ -37,7 +43,7 @@ export default function HeroRecrut() {
           ].map((chip) => (
             <div key={chip} className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-ahadi" />
-              <span style={{ fontSize: '12px', color: '#6B6B62' }}>{chip}</span>
+              <span style={{ fontSize: '12px', color: 'var(--gris-muted)' }}>{chip}</span>
             </div>
           ))}
         </div>

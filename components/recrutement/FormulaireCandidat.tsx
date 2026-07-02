@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { GOOGLE_FORM_URL, POSTES_VALIDES } from '@/lib/constants'
+import AuroraHalos from '@/components/AuroraHalos'
+import ScrollWatermark from '@/components/ScrollWatermark'
 
 export default function FormulaireCandidat() {
   const [nom, setNom] = useState('')
@@ -52,8 +54,14 @@ export default function FormulaireCandidat() {
     'w-full border border-bordure rounded-xl px-4 py-3 text-sm text-noir placeholder:text-gris-leger focus:outline-none focus:border-ahadi transition-colors'
 
   return (
-    <section id="candidature" className="px-6 py-20 bg-fond">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="candidature"
+      className="relative overflow-hidden px-6 py-20"
+      style={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, var(--ahadi-light) 100%)' }}
+    >
+      <AuroraHalos />
+      <ScrollWatermark tone="light" />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-16 items-start">
           {/* Left — contexte */}
           <div className="pt-2">
@@ -108,7 +116,7 @@ export default function FormulaireCandidat() {
 
             <blockquote
               className="border-l-2 border-ahadi pl-5 py-1"
-              style={{ borderColor: '#267253' }}
+              style={{ borderColor: 'var(--ahadi)' }}
             >
               <p
                 className="font-serif text-gris"
@@ -128,8 +136,8 @@ export default function FormulaireCandidat() {
           </div>
 
           {/* Right — form card */}
-          <div className="rounded-2xl overflow-hidden border border-bordure shadow-sm">
-            <div className="px-8 py-6" style={{ backgroundColor: '#267253' }}>
+          <div className="rounded-2xl overflow-hidden shadow-sm">
+            <div className="px-8 py-6" style={{ backgroundColor: 'var(--ahadi)' }}>
               <h3
                 className="font-serif text-white"
                 style={{ fontSize: '20px' }}
@@ -141,13 +149,13 @@ export default function FormulaireCandidat() {
               </p>
             </div>
 
-            <div className="bg-white p-8">
+            <div className="glass-panel p-8">
               {success ? (
                 <div
                   className="text-center"
                   style={{
-                    backgroundColor: '#F0F7F4',
-                    color: '#1A4A35',
+                    backgroundColor: 'var(--ahadi-light)',
+                    color: 'var(--ahadi-dark)',
                     padding: '2rem',
                     borderRadius: '12px',
                   }}
@@ -174,7 +182,7 @@ export default function FormulaireCandidat() {
                   >
                     Candidature envoyée.
                   </p>
-                  <p style={{ fontSize: '13px', lineHeight: '1.8', color: '#1A4A35' }}>
+                  <p style={{ fontSize: '13px', lineHeight: '1.8', color: 'var(--ahadi-dark)' }}>
                     Vérifiez votre email — vous avez reçu un formulaire
                     d&apos;évaluation complémentaire à remplir dans les 48h.
                   </p>
@@ -183,7 +191,7 @@ export default function FormulaireCandidat() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block mt-5 px-5 py-2.5 rounded-xl text-white text-sm font-medium"
-                    style={{ backgroundColor: '#267253' }}
+                    style={{ backgroundColor: 'var(--ahadi)' }}
                   >
                     Accéder au formulaire →
                   </a>
@@ -264,7 +272,7 @@ export default function FormulaireCandidat() {
                       value={poste}
                       onChange={(e) => setPoste(e.target.value)}
                       required
-                      style={{ appearance: 'none', backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%239B9B90' strokeWidth='1.5' fill='none' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E\")", backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center' }}
+                      style={{ appearance: 'none', backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%2377776C' strokeWidth='1.5' fill='none' strokeLinecap='round' strokeLinejoin='round'/%3E%3C/svg%3E\")", backgroundRepeat: 'no-repeat', backgroundPosition: 'right 14px center' }}
                     >
                       <option value="" disabled>
                         Choisir un poste...
@@ -312,7 +320,7 @@ export default function FormulaireCandidat() {
                         />
                         <path
                           d="M3 15v1a2 2 0 002 2h10a2 2 0 002-2v-1"
-                          stroke="#9B9B90"
+                          stroke="#77776C"
                           strokeWidth="1.5"
                           strokeLinecap="round"
                         />
@@ -324,7 +332,7 @@ export default function FormulaireCandidat() {
                         >
                           {cv ? cv.name : 'Ajouter votre CV'}
                         </p>
-                        <p style={{ fontSize: '11px', color: '#9B9B90', marginTop: '2px' }}>
+                        <p style={{ fontSize: '11px', color: 'var(--gris-leger)', marginTop: '2px' }}>
                           .pdf, .doc, .docx
                         </p>
                       </div>
