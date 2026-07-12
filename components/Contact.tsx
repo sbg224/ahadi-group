@@ -174,7 +174,7 @@ export default function Contact() {
                       name="nom"
                       type="text"
                       required
-                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi"
+                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir border border-bordure outline-none transition-colors focus:border-ahadi focus:ring-1 focus:ring-ahadi"
                       style={{ backgroundColor: 'var(--fond-input)' }}
                       placeholder="Votre nom"
                     />
@@ -189,7 +189,7 @@ export default function Contact() {
                       name="contact"
                       type="text"
                       required
-                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi"
+                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir border border-bordure outline-none transition-colors focus:border-ahadi focus:ring-1 focus:ring-ahadi"
                       style={{ backgroundColor: 'var(--fond-input)' }}
                       placeholder="email@exemple.com ou +33..."
                     />
@@ -203,7 +203,7 @@ export default function Contact() {
                       id="type_projet"
                       name="type_projet"
                       required
-                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi appearance-none"
+                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir border border-bordure outline-none transition-colors focus:border-ahadi focus:ring-1 focus:ring-ahadi appearance-none"
                       style={{ backgroundColor: 'var(--fond-input)' }}
                     >
                       <option value="">Choisir...</option>
@@ -225,7 +225,7 @@ export default function Contact() {
                       name="situation"
                       required
                       rows={4}
-                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir outline-none focus:ring-1 focus:ring-ahadi resize-none"
+                      className="w-full px-4 py-3 rounded-[10px] text-sm text-noir border border-bordure outline-none transition-colors focus:border-ahadi focus:ring-1 focus:ring-ahadi resize-none"
                       style={{ backgroundColor: 'var(--fond-input)' }}
                       placeholder="Décrivez votre situation..."
                     />
