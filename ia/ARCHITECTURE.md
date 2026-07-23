@@ -33,88 +33,63 @@ Son objectif est de permettre à tout développeur ou agent IA de comprendre rap
 
 2. Vue d’ensemble
 
-Décrire l’architecture générale du projet.
-
-Présenter les principaux composants et leurs interactions.
-
-Cette section peut être accompagnée de schémas lorsque cela est pertinent.
+Site Next.js (App Router) monolithique, sans base de données ni back-office : une landing page vitrine, un module de recrutement, et deux Route Handlers d'API pour les formulaires. Toute persistance passe par des emails transactionnels (Resend) et un Google Form externe, pas par un stockage propre au projet.
 
 ⸻
 
 3. Organisation du projet
 
-Décrire la structure générale du dépôt.
-
-Exemple :
-
-* applications ;
-* services ;
-* modules ;
-* bibliothèques ;
-* dossiers partagés ;
-* ressources.
+app/       — pages, layout, metadata SEO, Route Handlers API
+components/ — composants UI et animations, dont un sous-dossier recrutement/ dédié
+lib/       — logique serveur partagée (email, sécurité, constantes)
 
 ⸻
 
 4. Architecture applicative
 
-Présenter les différentes couches du projet.
-
-Par exemple :
-
-* interface utilisateur ;
-* logique métier ;
-* accès aux données ;
-* services ;
-* intégrations externes.
-
-Chaque couche doit avoir une responsabilité clairement définie.
+* Interface utilisateur : `components/` (sections vitrine, composants animés, `recrutement/` pour le module candidature).
+* Metadata / SEO : `app/layout.tsx`, `app/sitemap.ts`, `app/robots.ts`, `app/opengraph-image.tsx`.
+* Logique serveur / sécurité : `lib/origin.ts` (CSRF), `lib/rateLimit.ts`, `lib/email.ts` (sanitization), `lib/constants.ts` (règles métier).
+* Intégrations externes : Resend (`lib/resend.ts`), Google Form (lien statique, `lib/constants.ts`).
+* Accès aux données : aucun — pas de base de données dans ce projet.
 
 ⸻
 
 5. Flux principaux
 
-Décrire les principaux flux du projet.
+Contact
+1. Soumission du formulaire (`components/Contact.tsx`) → `POST /api/contact`.
+2. Vérification Origin (CSRF) → rate limit (5/10 min par IP) → honeypot → validation des champs.
+3. Envoi de l'email via Resend, avec `replyTo` intelligent si le champ contact est un email valide.
 
-Exemples :
-
-* authentification ;
-* création d’un utilisateur ;
-* réservation ;
-* paiement ;
-* synchronisation de données.
-
-L’objectif est d’expliquer le fonctionnement, pas l’implémentation.
+Candidature
+1. Soumission du formulaire (`components/recrutement/FormulaireCandidat.tsx`) → `POST /api/candidature`.
+2. Vérification Origin → rate limit (3/15 min par IP) → honeypot → validation des champs → validation du CV par magic bytes (PDF/DOC/DOCX, 5 Mo max).
+3. Double envoi Resend : notification interne AHADI + accusé de réception candidat (avec lien Google Form).
 
 ⸻
 
 6. Découpage des responsabilités
 
-Décrire la responsabilité des principaux modules ou domaines fonctionnels.
-
-Chaque composant doit avoir un rôle unique et clairement identifié.
+* `app/api/*` : réception, validation et orchestration des requêtes, aucune logique de sécurité inline.
+* `lib/origin.ts`, `lib/rateLimit.ts` : sécurité transverse, réutilisée par les deux routes API.
+* `lib/email.ts` : sanitization anti-XSS avant injection dans les templates d'email, indépendante du contenu métier.
+* `lib/constants.ts` : source unique des valeurs métier (postes valides, taille max CV, URLs).
+* `components/` : purement présentation ; aucune logique de sécurité côté client.
 
 ⸻
 
 7. Évolutivité
 
-Présenter les principes retenus pour faciliter les évolutions futures.
-
-Identifier les points d’extension et les limites connues.
+Le rate limiting en mémoire est un point d'extension identifié (voir README.md §Roadmap) : à migrer vers un store partagé (Redis/Upstash) en cas de montée en charge multi-instances, la structure actuelle isolant déjà cette logique dans `lib/rateLimit.ts`.
 
 ⸻
 
 8. Contraintes d’architecture
 
-Documenter les contraintes importantes.
-
-Par exemple :
-
-* découpage imposé ;
-* contraintes techniques ;
-* choix d’organisation ;
-* exigences de sécurité ;
-* exigences de performance.
+* Aucune base de données : toute évolution nécessitant de la persistance est un changement structurant (voir AES-R014).
+* Sécurité par défaut sur toute route API publique : Origin, rate limit, honeypot, validation stricte — architecture actuelle à reproduire pour toute nouvelle route exposée publiquement.
+* Version de Next.js non conventionnelle (voir AGENTS.md) : vérifier la documentation locale avant d'introduire une nouvelle convention de fichier ou d'API.
 
 ⸻
 

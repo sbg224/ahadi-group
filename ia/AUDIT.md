@@ -158,3 +158,43 @@ L’audit complète la checklist.
 La checklist valide une tâche.
 
 L’audit évalue durablement la qualité du projet.
+
+⸻
+
+Registre des audits
+
+AES-A001
+
+Date : 2026-07-23 17:35
+Auteur : Agent (Claude Code)
+Domaine : Sécurité, Architecture
+
+Résumé
+Audit initial du projet à l'adoption d'AES. Posture de sécurité globalement solide sur les points déjà documentés (en-têtes HTTP, CSRF, honeypot, validation CV, anti-XSS), mais une dépendance vulnérable en production (Next.js) nécessite une mise à jour, et deux écarts mineurs de cohérence documentation/plateforme ont été identifiés.
+
+Constats
+1. `npm audit` (dépendances de production) signale 3 vulnérabilités de sévérité High sur la version installée de Next.js (16.2.9) : SSRF via rewrites, DoS de l'API Image Optimization via SVG, désclosure des endpoints Server Functions internes, plus des vulnérabilités héritées via `postcss` (XSS, lecture de fichier arbitraire) et `sharp` (CVE libvips). Correctif disponible : mise à jour vers Next.js 16.2.11+.
+2. En-têtes de sécurité HTTP (`next.config.ts`) : CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, COOP, CORP — tous correctement configurés. Conforme.
+3. CSRF (`lib/origin.ts`) : allowlist stricte en production, bypass total si `NODE_ENV !== 'production'` — comportement attendu, pas un défaut.
+4. Rate limiting (`lib/rateLimit.ts`) : en mémoire (`Map`), donc par instance serverless. Limite déjà connue et documentée (README §Roadmap, ARCHITECTURE.md §7) ; confirmée non résolue à ce jour, pas un nouveau constat.
+5. Le fichier `.env.example` référencé dans les instructions d'installation du README.md n'existe pas dans le dépôt — un nouveau développeur suivant le README échouerait dès `cp .env.example .env.local`.
+6. `.env.local` n'a jamais été commité (historique Git vide sur ce fichier) et reste couvert par `.env*` dans `.gitignore`. Aucune fuite de secret détectée.
+7. Validation du CV (`app/api/candidature/route.ts`) : type MIME déclaré + magic bytes + taille max 5 Mo (`CV_MAX_SIZE`) — défense en profondeur correcte. Point non vérifié : la limite de payload par défaut des Serverless Functions Vercel (habituellement 4,5 Mo) est inférieure à `CV_MAX_SIZE` (5 Mo) ; un CV entre 4,5 et 5 Mo pourrait être rejeté par la plateforme avant validation applicative, avec un message d'erreur générique plutôt que le message métier prévu.
+8. Échappement anti-XSS (`lib/email.ts`) appliqué systématiquement avant injection dans les templates email. Conforme.
+9. Aucune route API ne déclare de limite explicite de taille de requête avant lecture du corps (`req.formData()` / `req.json()`) — repose entièrement sur la limite de plateforme Vercel, non documentée dans le projet.
+
+Recommandations
+* [Élevée] Mettre à jour Next.js vers 16.2.11 ou supérieur pour corriger les 3 vulnérabilités High. Mise à jour de dépendance majeure : nécessite validation explicite avant exécution (AES-R003).
+* [Moyenne] Créer un `.env.example` réel (`RESEND_API_KEY`, `CONTACT_EMAIL` en placeholders) pour que le README reste exécutable tel quel.
+* [Moyenne] Vérifier en conditions réelles qu'un CV de 4,6 à 5 Mo n'est pas rejeté en amont par la limite de payload Vercel ; ajuster `CV_MAX_SIZE` ou documenter la limite réelle sinon.
+* [Faible] Documenter la limite de payload de la plateforme comme contrainte d'infrastructure dans ARCHITECTURE.md ou STACK.md.
+
+Priorité : Élevée
+Statut : En cours
+
+Suivi (2026-07-23)
+* Next.js mis à jour vers 16.2.11 (`package.json`, `package-lock.json`) : résout le constat 1 (SSRF via rewrites, DoS Image Optimization SVG, désclosure des Server Functions) et la recommandation Élevée associée.
+* Vérifications exécutées après mise à jour : `npm run lint` (aucune erreur), `npm run build` (succès, 13/13 pages générées) — un blocage initial du build a été identifié et corrigé (cache `.next/` obsolète datant d'avant la montée de version, supprimé puis régénéré).
+* `npm audit fix` a corrigé une vulnérabilité High supplémentaire (`brace-expansion`), apparue de façon incidente via la mise à jour d'`eslint-config-next`, sans changement cassant.
+* `postcss` et `sharp` restent non corrigés : dépendances internes de Next.js lui-même, aucune version de Next.js disponible ne les corrige sans revenir à Next 9.3.3 (changement cassant, non retenu).
+* Recommandations Moyenne (`.env.example`, vérification `CV_MAX_SIZE` vs limite de payload Vercel) et Faible (documentation de la limite de payload) restent ouvertes.

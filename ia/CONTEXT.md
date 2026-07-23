@@ -34,91 +34,73 @@ Il constitue le point d’entrée fonctionnel du projet.
 
 Nom
 
-Nom officiel du projet.
+AHADI Group — Site vitrine & recrutement
 
 Description
 
-Présentation synthétique du projet.
+Site web officiel d'AHADI Group, société de supervision de projets pour la diaspora en Guinée (BTP, agriculture, commerce, démarches administratives). Description complète : voir README.md.
 
 Objectifs
 
-Objectifs principaux.
+* Présenter l'offre de service AHADI Group.
+* Faire fonctionner un module de recrutement complet (candidature en ligne + CV + emails automatisés).
 
 Public cible
 
-Utilisateurs concernés.
+* Diaspora guinéenne souhaitant un accompagnement de projet (BTP, agriculture, commerce, démarches administratives).
+* Candidats aux postes proposés par AHADI Group.
 
 État du projet
 
-Exemples :
-
-* Conception
-* Développement
-* Tests
-* Production
-* Maintenance
+Production (site live sur ahadi-group.com, déployé sur Vercel).
 
 ⸻
 
 3. Fonctionnalités principales
 
-Lister les principales fonctionnalités attendues.
+* Vitrine : landing page à sections, direction artistique animée, bouton WhatsApp flottant, pages légales, SEO complet, pages d'erreur custom.
+* Module de recrutement (`/nous-rejoindre`) : formulaire de candidature avec upload de CV, 4 postes ciblés, double email automatisé.
+* Formulaire de contact avec envoi via Resend.
 
-Exemple :
-
-* Authentification
-* Gestion des utilisateurs
-* Tableau de bord
-* Paiement
-* Notifications
-* Administration
+Détail complet : voir README.md §Fonctionnalités.
 
 ⸻
 
 4. Contraintes
 
-Documenter les contraintes importantes.
-
-Par exemple :
-
-* techniques ;
-* métier ;
-* réglementaires ;
-* budgétaires ;
-* organisationnelles.
+* Techniques : le projet utilise Next.js 16, une version dont les conventions divergent des versions antérieures (voir AGENTS.md à la racine) ; consulter `node_modules/next/dist/docs/` avant toute modification touchant une API Next.js.
+* Sécurité : deux formulaires publics exposés à internet (contact, candidature), dont un avec upload de fichier — traités comme surface d'attaque réelle, pas comme une démo (voir README.md §Sécurité).
+* Métier : pas de compte utilisateur ni de back-office ; le recrutement s'appuie sur des emails automatisés (Resend) et un Google Form externe pour l'évaluation complémentaire.
+* Organisationnelles : projet développé et maintenu par une seule personne (MSB).
 
 ⸻
 
 5. Règles métier
 
-Décrire les principales règles métier propres au projet.
-
-Cette section ne doit contenir que les règles fonctionnelles.
-
-Les règles de développement sont décrites dans STANDARDS.md.
+* 4 postes de recrutement valides côté serveur (enum) : Superviseur de chantier BTP, Superviseur de plantation / agriculture, Superviseur commercial, Superviseur administratif (`lib/constants.ts`).
+* À la soumission d'une candidature : double email automatique (notification interne AHADI + accusé de réception candidat avec lien vers le formulaire d'évaluation complémentaire Google Form).
+* Formulaire de contact : `replyTo` intelligent — si le champ « contact » saisi est une adresse email valide, il est utilisé comme `replyTo` de l'email envoyé.
+* CV : taille maximale 5 Mo, formats acceptés PDF / DOC / DOCX validés par magic bytes.
 
 ⸻
 
 6. Dépendances fonctionnelles
 
-Identifier les systèmes externes utilisés par le projet.
+* Resend : seul canal de notification (contact + candidature) ; pas de base de données ni de back-office.
+* Google Form (externe) : formulaire d'évaluation complémentaire envoyé aux candidats après candidature.
+* Vercel : hébergement + injection automatique des variables d'URL utilisées par la vérification CSRF (`lib/origin.ts`).
 
-Exemples :
-
-* API partenaires ;
-* fournisseurs de paiement ;
-* services tiers ;
-* authentification externe.
-
-Cette section décrit pourquoi chaque dépendance existe et quel rôle métier elle occupe. Sa description technique (catégorie, justification du choix, alternatives) est documentée dans STACK.md.
+Description technique (catégorie, justification, alternatives) : voir STACK.md.
 
 ⸻
 
 7. Évolution
 
-Décrire les objectifs à court, moyen et long terme du projet.
+D'après la Roadmap du README.md :
 
-Cette section permet de conserver une vision globale de son évolution.
+* Court terme : tests automatisés sur les Route Handlers (validation, rate limit, honeypot) ; CI GitHub Actions (lint + build à chaque PR).
+* Moyen terme : monitoring des soumissions (taux d'erreur Resend, tentatives bloquées par le rate limit).
+* Long terme : passage du rate limiting en mémoire vers un store partagé (Redis/Upstash) si montée en charge multi-instances.
 
 ⸻
 
