@@ -109,3 +109,12 @@ La structure peut être adaptée aux besoins du projet, à condition de conserve
 Le CHANGELOG.md constitue l’historique de référence du projet.
 
 Il permet de comprendre rapidement ce qui a évolué, à quel moment et dans quel objectif, sans avoir à analyser l’historique complet du code.
+
+⸻
+
+Journal
+
+## [Unreleased]
+### Fixed
+- 2026-07-23 : mise à jour de Next.js (16.2.9 → 16.2.11) et d'eslint-config-next, corrigeant 3 vulnérabilités de sévérité High (SSRF via rewrites, DoS Image Optimization SVG, désclosure des Server Functions internes). Voir AES-A001 (AUDIT.md).
+- 2026-07-23 : correction d'une vulnérabilité High supplémentaire (`brace-expansion`) via `npm audit fix`.
