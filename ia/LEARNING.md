@@ -108,3 +108,27 @@ Les apprentissages peuvent également provenir de :
 * améliorations réalisées.
 
 Ils peuvent conduire à des évolutions des standards, du workflow ou de l’architecture lorsque cela est justifié.
+
+⸻
+
+Registre des apprentissages
+
+AES-L001
+
+Date : 2026-07-23 18:19
+Contexte : Mise à jour de Next.js 16.2.9 → 16.2.11 (AES-A001, recommandation Élevée).
+Observation : `npm run build` s'est bloqué indéfiniment après la mise à jour (aucune progression après « Creating an optimized production build ... », `.next/lock` présent plus de 10 minutes, process quasi inactif en CPU), sans message d'erreur. Le dossier `.next/` existant avait été généré par la version précédente (16.2.9) et n'avait pas été régénéré depuis.
+Enseignement : Un changement de version de Next.js peut invalider silencieusement le cache de build existant (`.next/`) au lieu de produire une erreur explicite — le symptôme observable est un blocage sans message, pas un échec propre.
+Recommandation : Après toute mise à jour de la version de Next.js (même mineure ou patch), supprimer le dossier `.next/` avant de relancer un build, plutôt que de diagnostiquer un blocage a posteriori.
+Références : AES-A001 (AUDIT.md).
+
+⸻
+
+AES-L002
+
+Date : 2026-07-23 19:16
+Contexte : Ajout d'un hook `Stop` (`aes-closure-reminder.sh`) dans ce projet, destine a rappeler l'application de WORKFLOW.md Etape 9 (finalisation) a chaque fin de tour de l'agent, en complement du hook `UserPromptSubmit` (AES-R014) deja en place.
+Observation : Le hook renvoyait `hookSpecificOutput.additionalContext` a chaque declenchement, sans lire le champ d'entree `stop_hook_active`. Sur un hook `Stop`, `additionalContext` force une continuation de la conversation (documente comme equivalent a `decision: "block"`), pas un simple rappel passif comme sur `UserPromptSubmit`. Resultat : chaque continuation forcee redeclenchait le hook, qui renvoyait a nouveau `additionalContext`, provoquant une boucle auto-entretenue (7 declenchements consecutifs observes, sans aucune saisie humaine, avant intervention manuelle pour desactiver le hook).
+Enseignement : `additionalContext` a une semantique differente selon l'evenement de hook : passive sur `UserPromptSubmit` (rattachee a une invocation qui allait de toute facon se produire), active sur `Stop` (elle fabrique elle-meme l'invocation suivante). Meme corrige avec la garde `stop_hook_active`, `Stop` se declenche sur chaque tour sans possibilite de filtrage (aucun `matcher` supporte) : le cout (une continuation forcee apres chaque reponse, triviale ou non) reste disproportionne par rapport a un simple rappel de cloture de tache.
+Recommandation : Ne pas utiliser de hook `Stop` pour des rappels de fin de tache dans ce projet. S'appuyer sur `UserPromptSubmit` (avec `additionalContext`, jamais `systemMessage`) pour les rappels en debut de tache, et sur des questions de cloture explicites posees par l'agent pour la discipline de fin de tache (CHECKLIST.md, LEARNING.md/AES-R005). Si un hook `Stop` est envisage a l'avenir pour un besoin different (ex. forcer une verification precise avant de clore), il doit imperativement verifier `stop_hook_active` avant de renvoyer `additionalContext` ou toute decision bloquante.
+Références : AES-L001 (LEARNING.md), AUDIT.md (AES-A001).
