@@ -198,3 +198,6 @@ Suivi (2026-07-23)
 * `npm audit fix` a corrigé une vulnérabilité High supplémentaire (`brace-expansion`), apparue de façon incidente via la mise à jour d'`eslint-config-next`, sans changement cassant.
 * `postcss` et `sharp` restent non corrigés : dépendances internes de Next.js lui-même, aucune version de Next.js disponible ne les corrige sans revenir à Next 9.3.3 (changement cassant, non retenu).
 * Recommandations Moyenne (`.env.example`, vérification `CV_MAX_SIZE` vs limite de payload Vercel) et Faible (documentation de la limite de payload) restent ouvertes.
+
+Suivi (2026-07-24)
+* Verification fonctionnelle runtime effectuee (next start, mode production reel) : CSRF (Origin), rate limiting (contact 5/10min, candidature 3/15min), honeypot, validation des champs, en-tetes de securite — tous conformes, aucune regression apres la mise a jour Next.js. Chemin de succes complet (envoi reel via Resend) volontairement non teste, pour ne pas envoyer d'email reel.
