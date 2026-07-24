@@ -190,7 +190,7 @@ Recommandations
 * [Faible] Documenter la limite de payload de la plateforme comme contrainte d'infrastructure dans ARCHITECTURE.md ou STACK.md.
 
 Priorité : Élevée
-Statut : En cours
+Statut : Fermé (postcss/sharp restent un risque residuel accepte, aucun correctif disponible sans casser le projet)
 
 Suivi (2026-07-23)
 * Next.js mis à jour vers 16.2.11 (`package.json`, `package-lock.json`) : résout le constat 1 (SSRF via rewrites, DoS Image Optimization SVG, désclosure des Server Functions) et la recommandation Élevée associée.
@@ -201,3 +201,7 @@ Suivi (2026-07-23)
 
 Suivi (2026-07-24)
 * Verification fonctionnelle runtime effectuee (next start, mode production reel) : CSRF (Origin), rate limiting (contact 5/10min, candidature 3/15min), honeypot, validation des champs, en-tetes de securite — tous conformes, aucune regression apres la mise a jour Next.js. Chemin de succes complet (envoi reel via Resend) volontairement non teste, pour ne pas envoyer d'email reel.
+
+Suivi (2026-07-24, suite)
+* .env.example cree (README executable), exception .gitignore ajoutee.
+* CV_MAX_SIZE ramene a 4 Mo (sous la limite Vercel de 4,5 Mo, confirmee via la documentation officielle), message d'erreur rendu dynamique, contrainte documentee dans ARCHITECTURE.md §8. Build, lint et test fonctionnel direct verifies.
