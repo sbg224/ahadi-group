@@ -2,19 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import { resend } from '@/lib/resend'
 import { escHtml } from '@/lib/email'
 import { checkRateLimit } from '@/lib/rateLimit'
-import { GOOGLE_FORM_URL, POSTES_VALIDES, CV_MAX_SIZE } from '@/lib/constants'
+import {
+  GOOGLE_FORM_URL,
+  POSTES_VALIDES,
+  CV_MAX_SIZE,
+  RATE_LIMIT_CANDIDATURE,
+  ALLOWED_CV_TYPES,
+  PHONE_RE,
+} from '@/lib/constants'
 import { isAllowedOrigin } from '@/lib/origin'
 
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
-
-const ALLOWED_CV_TYPES = [
-  'application/pdf',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-]
-
-// Regex téléphone international — chiffres, +, -, espaces, parenthèses, 7 à 20 chars
-const PHONE_RE = /^[+\d][\d\s\-().]{5,19}$/
 
 async function isValidCvMagicBytes(file: File): Promise<boolean> {
   const buf = await file.slice(0, 8).arrayBuffer()
@@ -40,7 +38,7 @@ export async function POST(req: NextRequest) {
     req.headers.get('x-real-ip') ??
     '127.0.0.1'
 
-  if (!checkRateLimit(`candidature:${ip}`, 3, 15 * 60 * 1000)) {
+  if (!checkRateLimit(`candidature:${ip}`, RATE_LIMIT_CANDIDATURE.max, RATE_LIMIT_CANDIDATURE.windowMs)) {
     return NextResponse.json(
       { error: 'Trop de requêtes. Réessayez dans quelques minutes.' },
       { status: 429 },

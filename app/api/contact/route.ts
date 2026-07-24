@@ -3,6 +3,7 @@ import { resend } from '@/lib/resend'
 import { escHtml } from '@/lib/email'
 import { checkRateLimit } from '@/lib/rateLimit'
 import { isAllowedOrigin } from '@/lib/origin'
+import { RATE_LIMIT_CONTACT } from '@/lib/constants'
 
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
 
@@ -18,7 +19,7 @@ export async function POST(req: NextRequest) {
     req.headers.get('x-real-ip') ??
     '127.0.0.1'
 
-  if (!checkRateLimit(`contact:${ip}`, 5, 10 * 60 * 1000)) {
+  if (!checkRateLimit(`contact:${ip}`, RATE_LIMIT_CONTACT.max, RATE_LIMIT_CONTACT.windowMs)) {
     return NextResponse.json(
       { error: 'Trop de requêtes. Réessayez dans quelques minutes.' },
       { status: 429 },

@@ -16,3 +16,15 @@ export const POSTES_VALIDES = [
 export type PosteValide = (typeof POSTES_VALIDES)[number]
 
 export const CV_MAX_SIZE = 4 * 1024 * 1024 // 4 Mo — sous la limite de payload des Vercel Functions (4,5 Mo)
+
+export const RATE_LIMIT_CONTACT = { max: 5, windowMs: 10 * 60 * 1000 }
+export const RATE_LIMIT_CANDIDATURE = { max: 3, windowMs: 15 * 60 * 1000 }
+
+export const ALLOWED_CV_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+]
+
+// Regex téléphone international — chiffres, +, -, espaces, parenthèses, 7 à 20 chars
+export const PHONE_RE = /^[+\d][\d\s\-().]{5,19}$/

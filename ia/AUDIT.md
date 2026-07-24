@@ -205,3 +205,23 @@ Suivi (2026-07-24)
 Suivi (2026-07-24, suite)
 * .env.example cree (README executable), exception .gitignore ajoutee.
 * CV_MAX_SIZE ramene a 4 Mo (sous la limite Vercel de 4,5 Mo, confirmee via la documentation officielle), message d'erreur rendu dynamique, contrainte documentee dans ARCHITECTURE.md §8. Build, lint et test fonctionnel direct verifies.
+
+⸻
+
+AES-A002 — Audit ciblé de coherence documentation/code
+
+Date : 2026-07-24 19:22
+Auteur : Agent (Claude Code)
+Domaine : Documentation, Coherence
+
+Résumé : audit comparant les documents AES, le README et le code réel. Aucune faille de sécurité trouvée ; un écart documentaire relevé entre ARCHITECTURE.md et le code.
+
+Constats :
+* ARCHITECTURE.md §6 affirme que lib/constants.ts est "la source unique des valeurs métier". En réalité, les seuils de rate limit (contact, candidature), ALLOWED_CV_TYPES et PHONE_RE étaient codés en dur dans les routes API, hors de lib/constants.ts.
+* Aucun autre écart trouvé entre README, docs AES et code réel à cette date.
+
+Recommandations :
+* [Faible] Centraliser ces valeurs dans lib/constants.ts pour que l'affirmation d'ARCHITECTURE.md §6 soit exacte.
+
+Priorité : Faible
+Statut : Corrigé — RATE_LIMIT_CONTACT, RATE_LIMIT_CANDIDATURE, ALLOWED_CV_TYPES et PHONE_RE déplacés dans lib/constants.ts, routes mises à jour en conséquence.
