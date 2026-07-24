@@ -90,6 +90,7 @@ Le rate limiting en mémoire est un point d'extension identifié (voir README.md
 * Aucune base de données : toute évolution nécessitant de la persistance est un changement structurant (voir AES-R014).
 * Sécurité par défaut sur toute route API publique : Origin, rate limit, honeypot, validation stricte — architecture actuelle à reproduire pour toute nouvelle route exposée publiquement.
 * Version de Next.js non conventionnelle (voir AGENTS.md) : vérifier la documentation locale avant d'introduire une nouvelle convention de fichier ou d'API.
+* Limite de payload des Vercel Functions : 4,5 Mo maximum pour le corps d'une requete (plateforme, non configurable) — CV_MAX_SIZE (lib/constants.ts) est fixe a 4 Mo pour rester en dessous avec une marge de securite, incluant l'encodage multipart des autres champs du formulaire.
 
 ⸻
 

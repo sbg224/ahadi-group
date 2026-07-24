@@ -15,4 +15,4 @@ export const POSTES_VALIDES = [
 
 export type PosteValide = (typeof POSTES_VALIDES)[number]
 
-export const CV_MAX_SIZE = 5 * 1024 * 1024 // 5 Mo
+export const CV_MAX_SIZE = 4 * 1024 * 1024 // 4 Mo — sous la limite de payload des Vercel Functions (4,5 Mo)

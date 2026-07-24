@@ -99,7 +99,10 @@ export async function POST(req: NextRequest) {
   let cvAttachment: { filename: string; content: string } | undefined
   if (cv && cv.size > 0) {
     if (cv.size > CV_MAX_SIZE) {
-      return NextResponse.json({ error: 'CV trop volumineux (max 5 Mo)' }, { status: 400 })
+      return NextResponse.json(
+        { error: `CV trop volumineux (max ${CV_MAX_SIZE / (1024 * 1024)} Mo)` },
+        { status: 400 },
+      )
     }
     if (!ALLOWED_CV_TYPES.includes(cv.type)) {
       return NextResponse.json(
