@@ -80,7 +80,7 @@ Détail complet : voir README.md §Fonctionnalités.
 * 4 postes de recrutement valides côté serveur (enum) : Superviseur de chantier BTP, Superviseur de plantation / agriculture, Superviseur commercial, Superviseur administratif (`lib/constants.ts`).
 * À la soumission d'une candidature : double email automatique (notification interne AHADI + accusé de réception candidat avec lien vers le formulaire d'évaluation complémentaire Google Form).
 * Formulaire de contact : `replyTo` intelligent — si le champ « contact » saisi est une adresse email valide, il est utilisé comme `replyTo` de l'email envoyé.
-* CV : taille maximale 5 Mo, formats acceptés PDF / DOC / DOCX validés par magic bytes.
+* CV : taille maximale 4 Mo, formats acceptés PDF / DOC / DOCX validés par magic bytes.
 
 ⸻
 
