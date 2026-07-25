@@ -37,6 +37,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# AES — artefact local et éphémère de clôture, jamais suivi par git
+.aes/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

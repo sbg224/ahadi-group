@@ -36,4 +36,3 @@ JSON
 #                     qui n'est affiché que dans l'interface utilisateur et
 #                     n'atteint jamais l'agent : le rappel AES-R014 était
 #                     donc silencieusement inopérant depuis sa création en
-#                     version 1.3.0.
