@@ -3,9 +3,9 @@ import { resend } from '@/lib/resend'
 import { escHtml } from '@/lib/email'
 import { checkRateLimit } from '@/lib/rateLimit'
 import { isAllowedOrigin } from '@/lib/origin'
-import { RATE_LIMIT_CONTACT } from '@/lib/constants'
+import { RATE_LIMIT_CONTACT, CONTACT_EMAIL_FALLBACK } from '@/lib/constants'
 
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? CONTACT_EMAIL_FALLBACK
 
 export async function POST(req: NextRequest) {
   // Vérification CSRF par Origin

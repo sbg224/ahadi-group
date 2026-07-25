@@ -9,10 +9,11 @@ import {
   RATE_LIMIT_CANDIDATURE,
   ALLOWED_CV_TYPES,
   PHONE_RE,
+  CONTACT_EMAIL_FALLBACK,
 } from '@/lib/constants'
 import { isAllowedOrigin } from '@/lib/origin'
 
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@ahadi-group.com'
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? CONTACT_EMAIL_FALLBACK
 
 async function isValidCvMagicBytes(file: File): Promise<boolean> {
   const buf = await file.slice(0, 8).arrayBuffer()
